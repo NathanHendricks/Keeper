@@ -19,7 +19,7 @@ namespace Keeper.Controllers
 
 // THIS WILL GET VALUTS BY ID ---------------------------------
         [HttpGet("{vaultsId}")]
-        internal ActionResult<Vault> GetById(int vaultId)
+        public ActionResult<Vault> GetById(int vaultId)
         {
             try
             {
@@ -34,7 +34,7 @@ namespace Keeper.Controllers
 //  THIS WILL CREATE A NEW VAULT ------------------------------------
         [Authorize]
         [HttpPost]
-        internal async Task<ActionResult<Vault>> Create([FromBody] Vault newVault)
+        public async Task<ActionResult<Vault>> Create([FromBody] Vault newVault)
         {
             try
             {
@@ -53,7 +53,7 @@ namespace Keeper.Controllers
 // THIS WILL UPDATE A VAULT -----------------------------------------------------------------------
         [Authorize]
         [HttpPut("{vaultId}")]
-        internal async Task<ActionResult<Vault>> Update(int vaultId, [FromBody] Vault updatedVault)
+        public async Task<ActionResult<Vault>> Update(int vaultId, [FromBody] Vault updatedVault)
         {
             try
             {
@@ -70,7 +70,7 @@ namespace Keeper.Controllers
 //  THIS WILL DELETE A VAULT -------------------------------------------------------------------------
         [Authorize]
         [HttpDelete("{vaultId}")]
-        internal async Task<ActionResult<Vault>> Delete(int vaultId)
+        public async Task<ActionResult<Vault>> Delete(int vaultId)
         {
             try
             {
