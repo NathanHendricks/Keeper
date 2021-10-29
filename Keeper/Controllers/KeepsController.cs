@@ -49,15 +49,15 @@ namespace Keeper.Controllers
 //  THIS WILL CREATE A NEW KEEP ---------------------------------
         [Authorize]
         [HttpPost]
-        public async Task<ActionResult<Keep>> Post([FromBody] Keep kData)
+        public async Task<ActionResult<Keep>> Create([FromBody] Keep newData)
         {
             try
             {
                 Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
-                kData.CreatorId = userInfo.Id;
-                Keep createKeep = _keepsService.Post(kData);
+                newData.CreatorId = userInfo.Id;
+                Keep createKeep = _keepsService.Create(newData);
                 createKeep.Creator = userInfo;
-                return createKeep;
+                return Ok(createKeep);
             }
             catch (System.Exception e)
             {
@@ -74,7 +74,7 @@ namespace Keeper.Controllers
             {
                 Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
                 updatedKeep.Id = keepId;
-                return _keepsService.Update(updatedKeep, userInfo.Id);
+                return Ok(_keepsService.Update(updatedKeep, userInfo.Id));
             }
             catch (System.Exception e)
             {

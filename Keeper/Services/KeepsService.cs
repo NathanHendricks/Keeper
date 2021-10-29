@@ -37,9 +37,9 @@ namespace Keeper.Services
         }
 
 //  THIS WILL CREATE A NEW KEEP ---------------------------------
-        internal Keep Post(Keep kData)
+        public Keep Create(Keep newData)
         {
-            return _keepsRepository.Post(kData);
+            return _keepsRepository.Create(newData);
         }
 
 //  THIS WILL UPDATE A KEEP --------------------------------------------------
@@ -50,6 +50,9 @@ namespace Keeper.Services
             {
                 throw new System.Exception("THIS IS NOT YOUR KEEP");
             }
+            foundKeep.Name = updatedKeep.Name ?? foundKeep.Name;
+            foundKeep.Description = updatedKeep.Description ?? foundKeep.Description;
+            foundKeep.Img = updatedKeep.Img ?? foundKeep.Img;
             return _keepsRepository.Update(foundKeep);
         }
 

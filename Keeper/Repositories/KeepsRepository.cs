@@ -33,39 +33,39 @@ namespace Keeper.Repositories
         internal Keep GetById(int keepId)
         {
             string sql = @"
-            SELECT a.*, k.*
+            SELECT k.*, a.*
             FROM keeps k
-            JOIN accounts a on k.creatorId = a.id
-            WHERE k.id = @keepId;";
-            return _db.Query<Keep, Account, Keep>(sql, (k, a) => 
+            JOIN accounts a on a.id = k.creatorId
+            WHERE k.id = @keepId AND k.isDeleted = 0;";
+            return _db.Query<Keep, Profile, Keep>(sql, (k, a) => 
             {
                 k.Creator = a;
                 return k;
-            }, new{keepId}).FirstOrDefault();
+            }, new{ keepId }).FirstOrDefault();
         }
 
-// THIS WILL CREATE A NEW POST ----------------------------------
-        internal Keep Post(Keep kData)
+// THIS WILL CREATE A NEW KEEP ----------------------------------
+        public Keep Create(Keep newData)
         {
-            string sql =@"
-            INSERT INTO keeps(creatorId, name, description, img, isDeleted, views, shares, keeps, creator, createdAt, updatedAt)
-            VALUES(@CreatorId, @Name, @Description, @Img, @isDeleted, @Views, @Shares, @Keeps, @Creator, @CreatedAt, @UpdatedAt)
+            string sql = @"
+            INSERT INTO keeps(creatorId, name, description, img, isDeleted, views, shares, keeps)
+            VALUES(@CreatorId, @Name, @Description, @Img, @isDeleted, @Views, @Shares, @Keeps);
             SELECT LAST_INSERT_ID();";
-            int id = _db.ExecuteScalar<int>(sql, kData);
-            kData.Id = id;
-            return kData;
+            int id = _db.ExecuteScalar<int>(sql, newData);
+            newData.Id = id;
+            return newData;
         }
 
+//  THIS WILL UPDATE A KEEP ------------------------------------------
         internal ActionResult<Keep> Update(Keep foundKeep)
         {
-            string sql =@"
+            string sql = @"
             UPDATE keeps
             SET 
             name = @Name,
             description = @Description,
             img = @Img
-            WHERE id = @Id
-            LIMIT 1;";
+            WHERE id = @Id LIMIT 1;";
             var rowsAffected = _db.Execute(sql, foundKeep);
             if(rowsAffected == 0)
             {
