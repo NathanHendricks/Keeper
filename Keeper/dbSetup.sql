@@ -6,3 +6,18 @@ CREATE TABLE IF NOT EXISTS accounts(
   email varchar(255) COMMENT 'User Email',
   picture varchar(255) COMMENT 'User Picture'
 ) default charset utf8 COMMENT '';
+
+CREATE TABLE IF NOT EXISTS keeps(
+  id int NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'PK',
+  createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
+  updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
+  creatorId VARCHAR(255) NOT NULL COMMENT 'FK: Account Id',
+  name VARCHAR(255) COMMENT 'Keep Name',
+  description VARCHAR(255) COMMENT 'Keep description',
+  img VARCHAR(255) COMMENT 'Keep Img',
+  isDeleted TINYINT NOT NULL DEFAULT 0,
+  views int NOT NULL DEFAULT 0,
+  shares int NOT NULL DEFAULT 0,
+  keeps int NOT NULL DEFAULT 0,
+  FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
+) DEFAULT CHARSET utf8 COMMENT '';
