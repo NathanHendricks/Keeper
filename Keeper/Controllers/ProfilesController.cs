@@ -9,11 +9,11 @@ namespace Keeper.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ProfileController : ControllerBase
+    public class ProfilesController : ControllerBase
     {
         private readonly KeepsService _keepsService;
         private readonly VaultsService _vaultsService;
-        public ProfileController(KeepsService keepsService, VaultsService vaultsService)
+        public ProfilesController(KeepsService keepsService, VaultsService vaultsService)
         {
             _keepsService = keepsService;
             _vaultsService = vaultsService;
@@ -21,7 +21,7 @@ namespace Keeper.Controllers
 
         //  THIS WILL GET ALL THE VAULTS BY THE ACCOUNTS ID --------------------------------
         [Authorize]
-        [HttpGet("{profileId}vaults")]
+        [HttpGet("{profileId}/vaults")]
         public async Task<ActionResult<Vault>> GetVaultsByAccount(string profileId)
         {
             try
@@ -37,7 +37,7 @@ namespace Keeper.Controllers
 
 //  THIS WILL GET ALL THE KEEPS BY THE ACCOUNT ID --------------------------------------
         [Authorize]
-        [HttpGet("{profileId}keeps")]
+        [HttpGet("{profileId}/keeps")]
         public async Task<ActionResult<Keep>> GetKeepsByAccount(string profileId)
         {
             try

@@ -19,8 +19,8 @@ namespace Keeper.Controllers
         }
 
         // THIS GETS THE ACCOUNT OR IT WILL CREATE A NEW ONE ----------------------------
-        [HttpGet]
         [Authorize]
+        [HttpGet]
         public async Task<ActionResult<Account>> Get()
         {
             try
