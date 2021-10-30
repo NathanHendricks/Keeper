@@ -82,7 +82,7 @@ namespace Keeper.Repositories
             SET IsDeleted = 1
             WHERE id = @id
             LIMIT 1;";
-            var rowsAffected =_db.Execute(sql, new{ id} );
+            var rowsAffected =_db.Execute(sql, new{ id } );
             if(rowsAffected == 0)
             {
                 throw new System.Exception("Delete Failed....");

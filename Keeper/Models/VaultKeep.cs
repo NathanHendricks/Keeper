@@ -2,7 +2,7 @@ using System;
 
 namespace Keeper.Models
 {
-    public class VaultKeep
+    public class Vaultkeep
     {
         public int Id { get; set; }
         public string CreatorId { get; set; }

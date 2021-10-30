@@ -50,6 +50,7 @@ namespace Keeper.Services
             return _vaultsRepository.Update(foundVault);
         }
 
+//  THIS WILL DELETE A VAULT --------------------------------------------
         internal Vault Delete(int vaultId, string userId)
         {
             Vault foundVault = GetById(vaultId);
