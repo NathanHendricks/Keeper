@@ -4,24 +4,24 @@ using Keeper.Repositories;
 
 namespace Keeper.Services
 {
-    public class VaultKeepsService
+    public class VaultkeepsService
     {
-        private readonly VaultKeepsRepository _vaultKeepsRepository;
-        public VaultKeepsService(VaultKeepsRepository vaultKeepsRepository)
+        private readonly VaultkeepsRepository _vaultkeepsRepository;
+        public VaultkeepsService(VaultkeepsRepository vaultkeepsRepository)
         {
-            _vaultKeepsRepository = vaultKeepsRepository;
+            _vaultkeepsRepository = vaultkeepsRepository;
         }
 
 // THIS WILL GET ALL VAULTKEEPS ----------------------------------------------------
         internal List<VaultKeep> GetKeepVaults(int vaultId)
         { 
-            return _vaultKeepsRepository.GetKeepVaults(vaultId);
+            return _vaultkeepsRepository.GetKeepVaults(vaultId);
         }
 
 //  THIS WILL GET A VAULTKEEP BY ITS ID --------------------------------------------
         internal VaultKeep GetById(int vaultKeepId)
         {
-            VaultKeep foundVK = _vaultKeepsRepository.GetById(vaultKeepId);
+            VaultKeep foundVK = _vaultkeepsRepository.GetById(vaultKeepId);
             if(foundVK == null)
             {
                 throw new System.Exception("THIS IS NOT YOUR VAULTKEEP");
@@ -32,7 +32,7 @@ namespace Keeper.Services
 //  THIS WILL CREATE A NEW VAULTKEEP --------------------------------------------
         internal VaultKeep Create(VaultKeep newVK)
         {
-            return _vaultKeepsRepository.Create(newVK);
+            return _vaultkeepsRepository.Create(newVK);
         }
 
 // THIS WILL DELETE A VAULTKEEP -------------------------------------------------
@@ -43,7 +43,7 @@ namespace Keeper.Services
             {
                 throw new System.Exception("THIS IS NOT YOUR VAULT KEEP");
             }
-            _vaultKeepsRepository.Delete(vaultKeepId);
+            _vaultkeepsRepository.Delete(vaultKeepId);
             return foundVK;
         }
     }

@@ -6,10 +6,10 @@ using Keeper.Models;
 
 namespace Keeper.Repositories
 {
-    public class VaultKeepsRepository
+    public class VaultkeepsRepository
     {
         private readonly IDbConnection _db;
-        public VaultKeepsRepository(IDbConnection db)
+        public VaultkeepsRepository(IDbConnection db)
         {
             _db = db;
         }

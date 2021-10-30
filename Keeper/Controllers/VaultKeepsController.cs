@@ -9,13 +9,13 @@ using Microsoft.AspNetCore.Mvc;
 namespace Keeper.Controllers
 {
     [ApiController]
-    [Route("{api/[controller]}")]
-    public class VaultKeepsController : ControllerBase
+    [Route("api/[controller]")]
+    public class VaultkeepsController : ControllerBase
     {
-        private readonly VaultKeepsService _vaultKeepsService;
-        public VaultKeepsController(VaultKeepsService vaultKeepsService)
+        private readonly VaultkeepsService _vaultkeepsService;
+        public VaultkeepsController(VaultkeepsService vaultkeepsService)
         {
-            _vaultKeepsService = vaultKeepsService;
+            _vaultkeepsService = vaultkeepsService;
         }
 
 // THIS WILL GET ALL VAULTKEEPS -----------------------------------------------
@@ -24,7 +24,7 @@ namespace Keeper.Controllers
         {
             try
             {
-                List<VaultKeep> VK = _vaultKeepsService.GetKeepVaults(vaultId);
+                List<VaultKeep> VK = _vaultkeepsService.GetKeepVaults(vaultId);
                 return Ok(VK);
             }
             catch (System.Exception e)
@@ -39,7 +39,7 @@ namespace Keeper.Controllers
         {
             try
             {
-                return Ok(_vaultKeepsService.GetById(vaultKeepId));
+                return Ok(_vaultkeepsService.GetById(vaultKeepId));
             }
             catch (System.Exception e)
             {
@@ -56,7 +56,7 @@ namespace Keeper.Controllers
             {
                 Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
                 newVaultKeep.CreatorId = userInfo.Id;
-                VaultKeep createVK = _vaultKeepsService.Create(newVaultKeep);
+                VaultKeep createVK = _vaultkeepsService.Create(newVaultKeep);
                 createVK.Creator = userInfo;
                 return Ok(createVK);
                 
@@ -75,7 +75,7 @@ namespace Keeper.Controllers
             try
             {
                 Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
-                VaultKeep VK = _vaultKeepsService.Delete(vaultKeepId, userInfo.Id);
+                VaultKeep VK = _vaultkeepsService.Delete(vaultKeepId, userInfo.Id);
                 return Ok(VK);
             }
             catch (System.Exception e)
