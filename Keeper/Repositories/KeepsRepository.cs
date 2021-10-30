@@ -16,21 +16,21 @@ namespace Keeper.Repositories
         }
 
 //  THIS WILL GET ALL KEEPS BY ACCOUNT ID ------------------
-        internal List<Keep> GetKeepsByAccount(string profileId)
+        public List<Keep> GetKeepsByAccount(string profileId)
         {
             string sql = "SELECT * FROM keeps k WHERE k.creatorId = @profileId;";
             return _db.Query<Keep>(sql, new{ profileId }).ToList();
         }
 
 //  THIS WILL GET ALL KEEPS -------------------------------------
-        internal List<Keep> GetAll()
+        public List<Keep> GetAll()
         {
             string sql = "SELECT * FROM keeps;";
             return _db.Query<Keep>(sql).ToList();
         }
 
 //  THIS WILL GET A KEEP BY ITS ID -------------------------------
-        internal Keep GetById(int keepId)
+        public Keep GetById(int keepId)
         {
             string sql = @"
             SELECT k.*, a.*
@@ -57,7 +57,7 @@ namespace Keeper.Repositories
         }
 
 //  THIS WILL UPDATE A KEEP ------------------------------------------
-        internal ActionResult<Keep> Update(Keep foundKeep)
+        public ActionResult<Keep> Update(Keep foundKeep)
         {
             string sql = @"
             UPDATE keeps
@@ -75,7 +75,7 @@ namespace Keeper.Repositories
         }
 
 //  THIS WILL SOFT DELETE A KEEP ---------------------------------
-        internal void Delete(int id)
+        public void Delete(int id)
         {
             string sql = @"
             UPDATE keeps

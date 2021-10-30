@@ -36,7 +36,7 @@ namespace Keeper.Controllers
 
         // THIS WILL GET ALL VAULTKEEPS -----------------------------------------------
         [HttpGet("{vaultId}/keeps")]
-        private ActionResult<List<Vaultkeep>> GetKeepVaults(int vaultId)
+        public ActionResult<List<Vaultkeep>> GetKeepVaults(int vaultId)
         {
             try
             {

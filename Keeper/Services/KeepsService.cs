@@ -14,19 +14,19 @@ namespace Keeper.Services
         }
 
 //  THIS WILL GET ALL KEEPS BY THE ACCOUNT ID -----------------
-        internal List<Keep> GetKeepsByAccount(string profileId)
+        public List<Keep> GetKeepsByAccount(string profileId)
         {
             return _keepsRepository.GetKeepsByAccount(profileId);
         }
 
 //  THIS WILL GET ALL THE KEEPS ----------------------------------
-        internal List<Keep> GetAll()
+        public List<Keep> GetAll()
         {
             return _keepsRepository.GetAll();
         }
 
 //  THIS WILL GET A KEEP BY ITS ID --------------------------------
-        internal Keep GetById(int keepId)
+        public Keep GetById(int keepId)
         {
             Keep foundkeep = _keepsRepository.GetById(keepId);
             if(foundkeep == null)
@@ -43,7 +43,7 @@ namespace Keeper.Services
         }
 
 //  THIS WILL UPDATE A KEEP --------------------------------------------------
-        internal ActionResult<Keep> Update(Keep updatedKeep, string userId)
+        public ActionResult<Keep> Update(Keep updatedKeep, string userId)
         {
             Keep foundKeep = GetById(updatedKeep.Id);
             if(foundKeep.CreatorId != userId)
@@ -57,7 +57,7 @@ namespace Keeper.Services
         }
 
 //  THIS WILL DELETE A KEEP -----------------------------------
-        internal Keep Delete(int keepId, string userId)
+        public Keep Delete(int keepId, string userId)
         {
             Keep foundkeep = GetById(keepId);
             if(foundkeep.CreatorId != userId)

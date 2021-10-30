@@ -16,14 +16,14 @@ namespace Keeper.Repositories
         }
 
 //  THIS WILL GET ALL THE VAULTS BY THE ACCOUNT ID -----------
-        internal List<Vault> GetVaultsByAccount(string profileId)
+        public List<Vault> GetVaultsByAccount(string profileId)
         {
             string sql = "SELECT * FROM vaults v WHERE v.creatorId = @profileId;";
             return _db.Query<Vault>(sql, new{ profileId }).ToList();
         }
 
 //  THIS WILL GET A VAULT BY ITS ID ---------------------------------------------
-        internal Vault GetById(int vaultId)
+        public Vault GetById(int vaultId)
         {
             string sql = @"
             SELECT v.*, a.*
@@ -38,7 +38,7 @@ namespace Keeper.Repositories
         }
 
 //  THIS WILL CREATE A NEW VAULT -------------------------------------------
-        internal Vault Create(Vault newVault)
+        public Vault Create(Vault newVault)
         {
             string sql = @"
             INSERT INTO vaults(creatorId, name, description, isPrivate)
@@ -50,7 +50,7 @@ namespace Keeper.Repositories
         }
 
 //  THIS WILL UPDATE A VAULT ---------------------------------------------
-        internal ActionResult<Vault> Update(Vault foundVault)
+        public ActionResult<Vault> Update(Vault foundVault)
         {
             string sql = @"
             UPDATE vaults
@@ -67,7 +67,7 @@ namespace Keeper.Repositories
             return foundVault;
         }
 
-        internal void Delete(int vaultId)
+        public void Delete(int vaultId)
         {
             string sql = "DELETE FROM vaults WHERE id = @Id;";
             _db.Execute(sql, new { vaultId });

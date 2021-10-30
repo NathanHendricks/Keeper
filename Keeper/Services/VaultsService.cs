@@ -14,13 +14,13 @@ namespace Keeper.Services
         }
 
 // THIS WILL GET ALL THE VAULTS BY THE ACCOUNT ID ---------------
-        internal List<Vault> GetVaultsByAccount(string profileId)
+        public List<Vault> GetVaultsByAccount(string profileId)
         {
             return _vaultsRepository.GetVaultsByAccount(profileId);
         }
 
 //  THIS WILL GET A VAULT BY ITS ID ---------------------------------
-        internal Vault GetById(int vaultId)
+        public Vault GetById(int vaultId)
         {
             Vault foundVault = _vaultsRepository.GetById(vaultId);
             if(foundVault == null)
@@ -31,13 +31,13 @@ namespace Keeper.Services
         }
 
 //  THIS WILL CREATE A NEW VAULT ------------------------------------
-        internal Vault Create(Vault newVault)
+        public Vault Create(Vault newVault)
         {
             return _vaultsRepository.Create(newVault);
         }
 
 //  THIS WILL GET A VAULY BY ITS ID -----------------------------------------
-        internal ActionResult<Vault> Update(Vault updatedVault, string userId)
+        public ActionResult<Vault> Update(Vault updatedVault, string userId)
         {
             Vault foundVault = GetById(updatedVault.Id);
             if(foundVault.CreatorId != userId)
@@ -51,7 +51,7 @@ namespace Keeper.Services
         }
 
 //  THIS WILL DELETE A VAULT --------------------------------------------
-        internal Vault Delete(int vaultId, string userId)
+        public Vault Delete(int vaultId, string userId)
         {
             Vault foundVault = GetById(vaultId);
             if(foundVault.CreatorId != userId)
