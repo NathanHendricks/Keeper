@@ -14,9 +14,9 @@ namespace Keeper.Services
         }
 
 // THIS WILL GET ALL THE VAULTS BY THE ACCOUNT ID ---------------
-        internal List<Vault> GetVaultsByAccount(string userId)
+        internal List<Vault> GetVaultsByAccount(string profileId)
         {
-            return _vaultsRepository.GetVaultsByAccount(userId);
+            return _vaultsRepository.GetVaultsByAccount(profileId);
         }
 
 //  THIS WILL GET A VAULT BY ITS ID ---------------------------------

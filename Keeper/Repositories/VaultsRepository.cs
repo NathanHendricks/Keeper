@@ -16,10 +16,10 @@ namespace Keeper.Repositories
         }
 
 //  THIS WILL GET ALL THE VAULTS BY THE ACCOUNT ID -----------
-        internal List<Vault> GetVaultsByAccount(string userId)
+        internal List<Vault> GetVaultsByAccount(string profileId)
         {
-            string sql = "SELECT * FROM vaults v WHERE v.creatorId = @userId;";
-            return _db.Query<Vault>(sql, new{userId}).ToList();
+            string sql = "SELECT * FROM vaults v WHERE v.creatorId = @profileId;";
+            return _db.Query<Vault>(sql, new{ profileId }).ToList();
         }
 
 //  THIS WILL GET A VAULT BY ITS ID ---------------------------------------------

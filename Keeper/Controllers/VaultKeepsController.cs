@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using CodeWorks.Auth0Provider;
 using Keeper.Models;
@@ -18,24 +17,9 @@ namespace Keeper.Controllers
             _vaultkeepsService = vaultkeepsService;
         }
 
-// THIS WILL GET ALL VAULTKEEPS -----------------------------------------------
-        [HttpGet("{vaultId}/keeps")]
-        public ActionResult<List<VaultKeep>> GetKeepVaults(int vaultId)
-        {
-            try
-            {
-                List<VaultKeep> VK = _vaultkeepsService.GetKeepVaults(vaultId);
-                return Ok(VK);
-            }
-            catch (System.Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-        } 
-
 //  THIS WILL GET A VAULTKEEP BY ITS ID ------------------------------------------
         [HttpGet("{vaultKeepId}")]
-        public ActionResult<VaultKeep> GetById(int vaultKeepId)
+        public ActionResult<Vaultkeep> GetById(int vaultKeepId)
         {
             try
             {
@@ -50,13 +34,13 @@ namespace Keeper.Controllers
 // THIS WILL CREATE A NEW VAULTKEEP --------------------------------------------------------
         [Authorize]
         [HttpPost]
-        public async Task<ActionResult<VaultKeep>> Create([FromBody] VaultKeep newVaultKeep)
+        public async Task<ActionResult<Vaultkeep>> Create([FromBody] Vaultkeep newVaultKeep)
         {
             try
             {
                 Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
                 newVaultKeep.CreatorId = userInfo.Id;
-                VaultKeep createVK = _vaultkeepsService.Create(newVaultKeep);
+                Vaultkeep createVK = _vaultkeepsService.Create(newVaultKeep);
                 createVK.Creator = userInfo;
                 return Ok(createVK);
                 
@@ -70,12 +54,12 @@ namespace Keeper.Controllers
 // THIS WILL DELETE A VAULT KEEP -----------------------------------------------------
         [Authorize]
         [HttpDelete("{vaultKeepId}")]
-        public async Task<ActionResult<VaultKeep>> Delete(int vaultKeepId)
+        public async Task<ActionResult<Vaultkeep>> Delete(int vaultKeepId)
         {
             try
             {
                 Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
-                VaultKeep VK = _vaultkeepsService.Delete(vaultKeepId, userInfo.Id);
+                Vaultkeep VK = _vaultkeepsService.Delete(vaultKeepId, userInfo.Id);
                 return Ok(VK);
             }
             catch (System.Exception e)

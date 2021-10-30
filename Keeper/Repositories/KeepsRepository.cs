@@ -16,10 +16,10 @@ namespace Keeper.Repositories
         }
 
 //  THIS WILL GET ALL KEEPS BY ACCOUNT ID ------------------
-        internal List<Keep> GetKeepsByAccount(string userId)
+        internal List<Keep> GetKeepsByAccount(string profileId)
         {
-            string sql = "SELECT * FROM keeps k WHERE k.creatorId = @userId;";
-            return _db.Query<Keep>(sql, new{userId}).ToList();
+            string sql = "SELECT * FROM keeps k WHERE k.creatorId = @profileId;";
+            return _db.Query<Keep>(sql, new{ profileId }).ToList();
         }
 
 //  THIS WILL GET ALL KEEPS -------------------------------------

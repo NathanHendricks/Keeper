@@ -14,9 +14,9 @@ namespace Keeper.Services
         }
 
 //  THIS WILL GET ALL KEEPS BY THE ACCOUNT ID -----------------
-        internal List<Keep> GetKeepsByAccount(string userId)
+        internal List<Keep> GetKeepsByAccount(string profileId)
         {
-            return _keepsRepository.GetKeepsByAccount(userId);
+            return _keepsRepository.GetKeepsByAccount(profileId);
         }
 
 //  THIS WILL GET ALL THE KEEPS ----------------------------------
