@@ -18,7 +18,7 @@ namespace Keeper.Controllers
         }
 
 // THIS WILL GET VALUTS BY ID ---------------------------------
-        [HttpGet("{vaultsId}")]
+        [HttpGet("{vaultId}")]
         public ActionResult<Vault> GetById(int vaultId)
         {
             try
