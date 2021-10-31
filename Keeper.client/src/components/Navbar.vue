@@ -1,10 +1,10 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary px-3 border-bottom border-warning border-2">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex flex-column align-items-center">
         <img
           alt="logo"
-          src="../assets/img/cw-logo.png"
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC4IEOAzZA6LhLuVlcMyhupw_XSmRYZF_dLwsmPw_VgN5zAmOo5oHpLhv75UIbM0lVNOI&usqp=CAU"
           height="45"
         />
       </div>
@@ -23,8 +23,8 @@
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto">
         <li>
-          <router-link :to="{ name: 'About' }" class="btn text-success lighten-30 selectable text-uppercase">
-            About
+          <router-link :to="{ name: 'Vault' }" class="btn text-success lighten-30 selectable text-uppercase">
+            Vault
           </router-link>
         </li>
       </ul>
@@ -37,7 +37,7 @@
           Login
         </button>
 
-        <div class="dropdown my-2 my-lg-0" v-else>
+        <div class="dropdown my-2 my-lg-0 bg-secondary rounded" v-else>
           <div
             class="dropdown-toggle selectable"
             data-bs-toggle="dropdown"
@@ -50,7 +50,7 @@
               height="40"
               class="rounded"
             />
-            <span class="mx-3 text-success lighten-30">{{ user.name }}</span>
+            <span class="mx-3 text-primary">{{ user.name }}</span>
           </div>
           <div
             class="dropdown-menu p-0 list-group w-100"

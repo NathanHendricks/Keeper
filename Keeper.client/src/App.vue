@@ -6,8 +6,8 @@
     <router-view />
   </main>
   <footer>
-    <div class="bg-dark text-light text-center p-4">
-      Made with 💖 by CodeWorks
+    <div class="bg-primary text-light text-center p-4 border-top border-warning border-2 rounded shadow">
+      Created by: Shadow Wolf Natework 🐺
     </div>
   </footer>
 </template>
