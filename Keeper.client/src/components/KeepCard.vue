@@ -1,5 +1,5 @@
 <template>
-    <div class="card my-2" style="width: 16rem">
+    <div class="card my-2">
         <img :src="keep.img" class="card-img" alt="..." />
         <small>{{ keep.name }}</small>
         <img :src="keep.creator.picture" class="creator-img" alt="..." />
@@ -24,5 +24,8 @@ export default {
 
 
 <style lang="scss" scoped>
-
+.card-img{
+    height: 16rem;
+    width: 16rem;
+}
 </style>

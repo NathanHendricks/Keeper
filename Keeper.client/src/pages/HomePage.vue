@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <!-- keeps go here  -->
-            <Keep v-for="k in keeps" :key="k.id" :keep="k" class="col-md-4 shadow rounded p-0 m-2"/>
+            <KeepCard v-for="k in keeps" :key="k.id" :keep="k" class="col-md-4 shadow rounded p-0 m-2"/>
         </div>
     </div>
 </template>
