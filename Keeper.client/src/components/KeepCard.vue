@@ -1,8 +1,10 @@
 <template>
-    <div class="card my-2">
+    <div class="card p-0 my-2">
         <img :src="keep.img" class="card-img" alt="..." />
-        <small>{{ keep.name }}</small>
+        <div class="d-flex justify-content-between align-items-end card-img-overlay text-dark lighten-25 shadow">
+        <small class="ps-1">{{ keep.name }}</small>
         <img :src="keep.creator.picture" class="creator-img" alt="..." />
+        </div>
     </div>
 </template>
 
@@ -25,7 +27,7 @@ export default {
 
 <style lang="scss" scoped>
 .card-img{
-    height: 16rem;
-    width: 16rem;
+    background-size: cover;
+    background-position: center top;
 }
 </style>

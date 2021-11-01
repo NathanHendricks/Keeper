@@ -1,8 +1,8 @@
 <template>
-    <div class="container">
-        <div class="row">
+    <div class="container-fluid">
+        <div class="row ms-5">
             <!-- keeps go here  -->
-            <KeepCard v-for="k in keeps" :key="k.id" :keep="k" class="col-md-4 shadow rounded p-0 m-2"/>
+            <KeepCard v-for="k in keeps" :key="k.id" :keep="k" class="col-md-2 shadow rounded mx-3 mt-2"/>
         </div>
     </div>
 </template>
