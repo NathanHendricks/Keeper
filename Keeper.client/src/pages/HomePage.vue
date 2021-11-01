@@ -39,20 +39,9 @@ img {
     padding: 1em;
     column-count: 4;
 }
-
-@media(max-width: 800px){
-    .container{
-        column-count: 3;
-    }
-}
 @media(max-width: 600px){
     .container{
         column-count: 2;
-    }
-}
-@media(max-width: 400px){
-    .container{
-        column-count: 1;
     }
 }
 </style>
