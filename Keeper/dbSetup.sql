@@ -44,6 +44,7 @@ CREATE TABLE IF NOT EXISTS vault_keeps(
   vaultId int NOT NULL COMMENT 'FK: Vault Id',
   keepId int NOT NULL COMMENT 'FK: Keep Id',
   creatorId VARCHAR(255) COMMENT 'FK: Account Id',
+  isDeleted TINYINT NOT NULL DEFAULT 0,
   FOREIGN KEY (vaultId) REFERENCES vaults(id) ON DELETE CASCADE,
   FOREIGN KEY (keepId) REFERENCES keeps(id) ON DELETE CASCADE,
   FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE

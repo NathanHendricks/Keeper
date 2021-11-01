@@ -67,10 +67,10 @@ namespace Keeper.Repositories
             return foundVault;
         }
 
-        public void Delete(int vaultId)
+        public void Delete(int id)
         {
             string sql = "DELETE FROM vaults WHERE id = @Id;";
-            _db.Execute(sql, new { vaultId });
+            _db.Execute(sql, new { id });
         }
     }
 }

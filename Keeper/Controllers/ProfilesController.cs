@@ -19,7 +19,7 @@ namespace Keeper.Controllers
             _vaultsService = vaultsService;
         }
 
-        //  THIS WILL GET ALL THE VAULTS BY THE ACCOUNTS ID --------------------------------
+//  THIS WILL GET ALL THE VAULTS BY THE ACCOUNTS ID --------------------------------
         [Authorize]
         [HttpGet("{profileId}/vaults")]
         public async Task<ActionResult<Vault>> GetVaultsByAccount(string profileId)

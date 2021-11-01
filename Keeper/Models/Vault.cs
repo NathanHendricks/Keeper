@@ -10,7 +10,12 @@ namespace Keeper.Models
         public string Description { get; set; }
         public bool IsPrivate { get; set; }
         public Profile Creator { get; set; }
+        public Keep Keep { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
+    }
+    public class VaultkeepViewModel : Vault
+    {
+        public int vaultKeepId { get; set; }
     }
 }

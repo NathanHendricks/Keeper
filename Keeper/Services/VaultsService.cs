@@ -36,7 +36,7 @@ namespace Keeper.Services
             return _vaultsRepository.Create(newVault);
         }
 
-//  THIS WILL GET A VAULY BY ITS ID -----------------------------------------
+//  THIS WILL UPDATE A VAULY BY ITS ID -----------------------------------------
         public ActionResult<Vault> Update(Vault updatedVault, string userId)
         {
             Vault foundVault = GetById(updatedVault.Id);
