@@ -52,8 +52,8 @@ namespace Keeper.Repositories
         public Vaultkeep Create(Vaultkeep newVK)
         {
             string sql = @"
-            INSERT INTO vault_keeps(vaultId, keepId)
-            VALUES (@VaultId, @KeepId);
+            INSERT INTO vault_keeps(vaultId, keepId, creatorId)
+            VALUES (@VaultId, @KeepId, @CreatorId);
             SELECT LAST_INSERT_ID();";
             newVK.Id = _db.ExecuteScalar<int>(sql, newVK);
             return newVK;
@@ -62,7 +62,7 @@ namespace Keeper.Repositories
 //  THIS WILL SOFT DELETE A VAULTKEEP
         public void Delete(int id)
         {
-            string sql = "DELETE FROM vaults WHERE id = @Id;";
+            string sql = "DELETE FROM vault_keeps WHERE id = @Id;";
             _db.Execute(sql, new { id });
         }
     }

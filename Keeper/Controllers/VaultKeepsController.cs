@@ -19,11 +19,11 @@ namespace Keeper.Controllers
 
 //  THIS WILL GET A VAULTKEEP BY ITS ID ------------------------------------------
         [HttpGet("{vaultKeepId}")]
-        public ActionResult<Vaultkeep> GetById(int vaultKeepId)
+        public ActionResult<VaultkeepViewModel> GetById(int vaultkeepId)
         {
             try
             {
-                return Ok(_vaultkeepsService.GetById(vaultKeepId));
+                return Ok(_vaultkeepsService.GetById(vaultkeepId));
             }
             catch (System.Exception e)
             {
@@ -41,7 +41,6 @@ namespace Keeper.Controllers
                 Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
                 newVaultKeep.CreatorId = userInfo.Id;
                 Vaultkeep createVK = _vaultkeepsService.Create(newVaultKeep);
-                createVK.Creator = userInfo;
                 return Ok(createVK);
                 
             }
@@ -54,12 +53,12 @@ namespace Keeper.Controllers
 // THIS WILL DELETE A VAULT KEEP -----------------------------------------------------
         [Authorize]
         [HttpDelete("{vaultKeepId}")]
-        public async Task<ActionResult<Vaultkeep>> Delete(int vaultKeepId)
+        public async Task<ActionResult<VaultkeepViewModel>> Delete(int vaultKeepId)
         {
             try
             {
                 Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
-                Vaultkeep VK = _vaultkeepsService.Delete(vaultKeepId, userInfo.Id);
+                VaultkeepViewModel VK = _vaultkeepsService.Delete(vaultKeepId, userInfo.Id);
                 return Ok(VK);
             }
             catch (System.Exception e)
@@ -67,6 +66,5 @@ namespace Keeper.Controllers
                 return BadRequest(e.Message);
             }
         }
-
     }
 }

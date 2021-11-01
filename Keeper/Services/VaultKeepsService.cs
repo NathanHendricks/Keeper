@@ -22,9 +22,9 @@ namespace Keeper.Services
         public VaultkeepViewModel GetById(int vaultkeepId)
         {
             VaultkeepViewModel foundVK = _vaultkeepsRepository.GetById(vaultkeepId);
-            if(foundVK == null)
+            if (foundVK == null)
             {
-                throw new System.Exception("CAN NOT FIND THAT");
+                throw new System.Exception("CAN NOT FIND THAT ID");
             }
             return foundVK;
         }
