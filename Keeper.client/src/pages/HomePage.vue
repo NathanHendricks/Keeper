@@ -1,9 +1,7 @@
 <template>
-    <div class="container-fluid">
-        <div class="row masonary">
+    <div class="container">
             <!-- keeps go here  -->
-            <KeepCard v-for="k in keeps" :key="k.id" :keep="k" class=" img"/>
-        </div>
+            <KeepCard v-for="k in keeps" :key="k.id" :keep="k"/>
     </div>
 </template>
 
@@ -33,12 +31,28 @@ export default {
 
 
 <style lang="scss" scoped>
-.img {
-    width: 25%;
+img {
+    width: 100%;
     margin-bottom: 1em;
 }
-.masonary{
+.container{
     padding: 1em;
     column-count: 4;
+}
+
+@media(max-width: 800px){
+    .container{
+        column-count: 3;
+    }
+}
+@media(max-width: 600px){
+    .container{
+        column-count: 2;
+    }
+}
+@media(max-width: 400px){
+    .container{
+        column-count: 1;
+    }
 }
 </style>
