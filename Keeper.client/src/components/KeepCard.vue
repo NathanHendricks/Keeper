@@ -6,6 +6,9 @@
         <img :src="keep.creator.picture" class="creator-img" alt="..." />
         </div>
     </div>
+
+    <!-- modal goes here -->
+    
 </template>
 
 
