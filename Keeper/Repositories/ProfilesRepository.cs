@@ -15,8 +15,8 @@ namespace Keeper.Repositories
 
         public Profile GetById(string id)
         {
-            string sql = "SELECT p.* WHERE p.id = @id;";
-            return _db.Query<Profile>(sql).FirstOrDefault();
+            string sql = "SELECT * FROM accounts p WHERE p.id = @id;";
+            return _db.Query<Profile>(sql, new { id }).FirstOrDefault();
         }
     }
 }

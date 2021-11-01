@@ -1,8 +1,5 @@
-using System.Threading.Tasks;
-using CodeWorks.Auth0Provider;
 using Keeper.Models;
 using Keeper.Services;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Keeper.Controllers
@@ -21,13 +18,13 @@ namespace Keeper.Controllers
             _profilesService = profilesService;
         }
 
-        [Authorize]
+        // [Authorize]
         [HttpGet("{profileId}")]
-        public async Task<ActionResult<Profile>> GetProfile(string profileId)
+        public ActionResult<Profile> GetProfile(string profileId)
         {
             try
             {
-                Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+                // Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
                 return Ok(_profilesService.GetById(profileId));
             }
             catch (System.Exception e)
@@ -37,13 +34,13 @@ namespace Keeper.Controllers
         }
 
 //  THIS WILL GET ALL THE VAULTS BY THE ACCOUNTS ID --------------------------------
-        [Authorize]
+        // [Authorize]
         [HttpGet("{profileId}/vaults")]
-        public async Task<ActionResult<Vault>> GetVaultsByAccount(string profileId)
+        public ActionResult<Vault> GetVaultsByAccount(string profileId)
         {
             try
             {
-                Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+                // Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
                 return Ok(_vaultsService.GetVaultsByAccount(profileId));
             }
             catch (System.Exception e)
@@ -53,13 +50,13 @@ namespace Keeper.Controllers
         }
 
 //  THIS WILL GET ALL THE KEEPS BY THE ACCOUNT ID --------------------------------------
-        [Authorize]
+        // [Authorize]
         [HttpGet("{profileId}/keeps")]
-        public async Task<ActionResult<Keep>> GetKeepsByAccount(string profileId)
+        public ActionResult<Keep> GetKeepsByAccount(string profileId)
         {
             try
             {
-                Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+                // Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
                 return Ok(_keepsService.GetKeepsByAccount(profileId));
             }
             catch (System.Exception e)

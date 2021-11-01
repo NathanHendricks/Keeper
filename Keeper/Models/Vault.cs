@@ -14,8 +14,4 @@ namespace Keeper.Models
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
     }
-    public class VaultkeepViewModel : Vault
-    {
-        public int vaultKeepId { get; set; }
-    }
 }
