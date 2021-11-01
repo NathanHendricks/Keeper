@@ -13,10 +13,27 @@ namespace Keeper.Controllers
     {
         private readonly KeepsService _keepsService;
         private readonly VaultsService _vaultsService;
-        public ProfilesController(KeepsService keepsService, VaultsService vaultsService)
+        private readonly ProfilesService _profilesService;
+        public ProfilesController(KeepsService keepsService, VaultsService vaultsService, ProfilesService profilesService)
         {
             _keepsService = keepsService;
             _vaultsService = vaultsService;
+            _profilesService = profilesService;
+        }
+
+        [Authorize]
+        [HttpGet("{profileId}")]
+        public async Task<ActionResult<Profile>> GetProfile(string profileId)
+        {
+            try
+            {
+                Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+                return Ok(_profilesService.GetById(profileId));
+            }
+            catch (System.Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
 //  THIS WILL GET ALL THE VAULTS BY THE ACCOUNTS ID --------------------------------

@@ -13,37 +13,37 @@ namespace Keeper.Services
         }
 
 // THIS WILL GET ALL VAULTKEEPS ----------------------------------------------------
-        internal List<VaultKeep> GetKeepVaults(int vaultId)
+        public List<VaultkeepViewModel> GetKeepVaults(int vaultId)
         { 
             return _vaultkeepsRepository.GetKeepVaults(vaultId);
         }
 
 //  THIS WILL GET A VAULTKEEP BY ITS ID --------------------------------------------
-        internal VaultKeep GetById(int vaultKeepId)
+        public VaultkeepViewModel GetById(int vaultkeepId)
         {
-            VaultKeep foundVK = _vaultkeepsRepository.GetById(vaultKeepId);
+            VaultkeepViewModel foundVK = _vaultkeepsRepository.GetById(vaultkeepId);
             if(foundVK == null)
             {
-                throw new System.Exception("THIS IS NOT YOUR VAULTKEEP");
+                throw new System.Exception("CAN NOT FIND THAT");
             }
             return foundVK;
         }
 
 //  THIS WILL CREATE A NEW VAULTKEEP --------------------------------------------
-        internal VaultKeep Create(VaultKeep newVK)
+        public Vaultkeep Create(Vaultkeep newVK)
         {
             return _vaultkeepsRepository.Create(newVK);
         }
 
 // THIS WILL DELETE A VAULTKEEP -------------------------------------------------
-        internal VaultKeep Delete(int vaultKeepId, string userId)
+        public VaultkeepViewModel Delete(int vaultkeepId, string userId)
         {
-            VaultKeep foundVK = GetById(vaultKeepId);
+            VaultkeepViewModel foundVK = GetById(vaultkeepId);
             if(foundVK.CreatorId != userId)
             {
                 throw new System.Exception("THIS IS NOT YOUR VAULT KEEP");
             }
-            _vaultkeepsRepository.Delete(vaultKeepId);
+            _vaultkeepsRepository.Delete(vaultkeepId);
             return foundVK;
         }
     }
