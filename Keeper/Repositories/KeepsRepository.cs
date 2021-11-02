@@ -25,8 +25,15 @@ namespace Keeper.Repositories
 //  THIS WILL GET ALL KEEPS -------------------------------------
         public List<Keep> GetAll()
         {
-            string sql = "SELECT * FROM keeps;";
-            return _db.Query<Keep>(sql).ToList();
+            string sql = @"
+            SELECT k.*, a.* 
+            FROM keeps k
+            JOIN accounts a on a.id = k.creatorId;";
+            return _db.Query<Keep, Profile, Keep>(sql, (k, a) =>
+            {
+                k.Creator = a;
+                return k;
+            }).ToList();
         }
 
 //  THIS WILL GET A KEEP BY ITS ID -------------------------------
