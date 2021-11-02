@@ -21,9 +21,9 @@
                 placeholder="Keep Description..."
                 v-model="editable.description">
         </div>
-        <div class="button-group d-flex justify-content-end align-items-end">
-            <button type="submit" class="btn btn-primary selectable">
-                <p>create</p>
+        <div class="button-group d-flex justify-content-end align-items-end mt-2 p-0 px-2">
+            <button type="submit" class="btn btn-info selectable p-0 px-2">
+                <p>Create</p>
             </button>
         </div>
     </form>
@@ -31,6 +31,7 @@
 
 
 <script>
+import { ref } from '@vue/reactivity'
 import { keepsService } from '../services/KeepsService'
 import { logger } from '../utils/Logger'
 import Pop from '../utils/Pop'

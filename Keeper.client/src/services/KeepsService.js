@@ -18,8 +18,8 @@ class KeepsService{
         AppState.vaultkeeps = res.data.map(k => new Keep(k))
     }
 
-    createKeep(newkeep){
-        const res = await api.Post('api/keep', newkeep)
+    async createKeep(newkeep){
+        const res = await api.post('api/keeps', newkeep)
         logger.log('created keep', res.data)
         AppState.keeps.unshift(new Keep(res.data))
     }

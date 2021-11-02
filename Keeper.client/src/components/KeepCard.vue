@@ -35,7 +35,7 @@
                             alt="user photo"
                             height="40"
                             class="rounded" />
-                            <span class="mx-3 text-primary">{{ user.name }}</span>
+                            <span class="mx-3 text-primary">{{ keep.creator.name }}</span>
                         </div>
                     </div>
                 </div>

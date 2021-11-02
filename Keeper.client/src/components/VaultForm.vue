@@ -20,10 +20,10 @@
                 name="isPrivate"
                 v-model="editable.isPrivate"
             >
-            <small>Private Vaults can only be seen by you</small>
+            <br/><small>Private Vaults can only be seen by you</small>
         </div>
-        <div class="button-group d-flex justify-content-end align-items-end">
-            <button type="submit" class="btn btn-primary selectable">
+        <div class="button-group d-flex justify-content-end align-items-end p-0 px-2">
+            <button type="submit" class="btn btn-primary selectable p-0 px-2 ">
                 <p>create</p>
             </button>
         </div>
@@ -32,6 +32,7 @@
 
 
 <script>
+import { ref } from '@vue/reactivity'
 import { vaultsService } from '../services/VaultsService'
 import { logger } from '../utils/Logger'
 import Pop from '../utils/Pop'
