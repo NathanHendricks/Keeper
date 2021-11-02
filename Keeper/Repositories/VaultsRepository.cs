@@ -18,8 +18,16 @@ namespace Keeper.Repositories
 //  THIS WILL GET ALL THE VAULTS BY THE ACCOUNT ID -----------
         public List<Vault> GetVaultsByAccount(string profileId)
         {
-            string sql = "SELECT * FROM vaults v WHERE v.creatorId = @profileId;";
-            return _db.Query<Vault>(sql, new{ profileId }).ToList();
+            string sql = @"SELECT
+            v.*, a.*
+            FROM vaults v 
+            JOIN accounts a on a.id = v.creatorId
+            WHERE v.creatorId = @profileId;";
+            return _db.Query<Vault, Profile, Vault>(sql, (v, a) =>
+            {
+                v.Creator = a;
+                return v;
+            }, new{ profileId }).ToList();
         }
 
 //  THIS WILL GET A VAULT BY ITS ID ---------------------------------------------
@@ -67,6 +75,7 @@ namespace Keeper.Repositories
             return foundVault;
         }
 
+// THIS WILL DELETE A VAULT/
         public void Delete(int id)
         {
             string sql = "DELETE FROM vaults WHERE id = @Id;";
