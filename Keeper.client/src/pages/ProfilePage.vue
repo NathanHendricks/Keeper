@@ -1,6 +1,6 @@
 <template>
-    <div class="component">
-this tis the keep modal
+    <div class="container-fluid">
+        this is the profile page
     </div>
 </template>
 
