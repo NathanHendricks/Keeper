@@ -3,9 +3,9 @@
         <img :src="keep.img" class="card-img" alt="..." />
         <div class="d-flex justify-content-between align-items-end card-img-overlay text-dark lighten-25 shadow">
             <small class="ps-1">{{ keep.name }}</small>
-            <router-link @click.stop :to='{name: Profile, params: {id: keep.CreatorId} }' class="selectable">
+            <div @click="goToProfilePage(keep.creatorId)" class="selectable">
                 <img :src="keep.creator.picture" class="img-creator rounded-circle" alt="..." />
-            </router-link>
+            </div>
         </div>
     </div>
 
@@ -47,8 +47,13 @@
 
 
 <script>
+import { Modal } from 'bootstrap'
+import { useRoute } from 'vue-router'
 import { Keep } from "../Models/Keep"
 import { Profile } from '../Models/Profile'
+import { router } from '../router'
+import { logger } from '../utils/Logger'
+import Pop from '../utils/Pop'
 export default {
     props: {
         keep: {
@@ -60,8 +65,21 @@ export default {
         //     default: () => { return new Profile}
         // }
     },
-    setup(){
-        return {}
+    setup(props){
+        const route = useRoute()
+        return {
+            goToProfilePage(id){
+                try {
+                    router.push({ name: 'Profile', params: {id: id}})
+                    const modal = Modal.getOrCreateInstance(document.getElementById(`keep-modal-${props.keep.id}`))
+                    modal.hide()
+                } catch (error) {
+                    Pop.toast(error.message)
+                    logger.log(error)
+                }
+            }
+
+        }
     }
 }
 </script>

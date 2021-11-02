@@ -10,7 +10,7 @@
                 </div>
             </div>
             <div v-else>
-                <div class="spinner-border text-secondary" role="status">
+                <div class="spinner-border text-secondary mt-5 ms-5" role="status">
                     <span class="visually-hidden">Loading...</span>
                     <p>loading....</p>
                 </div>
