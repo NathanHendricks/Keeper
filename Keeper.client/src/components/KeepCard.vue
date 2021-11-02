@@ -33,10 +33,9 @@
                                 <small>add to vault</small>
                             </button>
                             <i class="mdi mdi-delete text-danger selectable"/>
-                            <img :src="keep.creator.picture"
-                            alt="user photo"
-                            height="40"
-                            class="rounded-circle" />
+                            <div @click="goToProfilePage(keep.creatorId)" class="selectable">
+                                <img :src="keep.creator.picture" class="img-creator rounded-circle" alt="..." />
+                            </div>
                         </span>
                     </div>
                 </div>
