@@ -12,23 +12,48 @@
                 <p>loading....</p>
             </div>
         </div>
-            <div v-if="vaults > 0">
-                <!-- vaults go here in line -->
-                <h4>Vaults</h4><i mdi mdi-plus/>
-                <!-- component goes here -->
-            </div>
-            <div v-else>
-                <h5>No Vaults....</h5>
-            </div>    
-            <div v-if="keeps > 0">
-                <!-- keeps go here with masonary -->
-                <h4>Keeps</h4><i mdi mdi-plus/>
-                <!-- component goes here -->
-            </div>
-            <div v-else> 
-                <h5>No Keeps....</h5>
-            </div>
+        <div v-if="vaults" >
+            <!-- vaults go here in line -->
+            <h4>Vaults</h4>
+            <button class="btn text-primary selectable" data-bs-toggle="modal" data-bs-target="#new-vault-modal" title="Add a Vault">
+                <i mdi mdi-plus f-20/>
+            </button>
+            <!-- component goes here -->
+        </div>
+        <div v-else>
+            <h5>No Vaults....</h5>
+        </div>    
+        <div v-if="keeps" class="container">
+            <!-- keeps go here with masonary -->
+            <h4>Keeps</h4>
+            <button class="btn text-primary selectable" data-bs-toggle="modal" data-bs-target="#new-keep-modal" title="Add a Keep">
+                <i mdi mdi-plus f-20/>
+            </button>
+            <!-- component goes here -->
+            <KeepCard v-for="k in keeps" :key="k.id" :keep="k"/>
+        </div>
+        <div v-else> 
+            <h5>No Keeps....</h5>
+        </div>
     </div>
+    <!-- Vault Modal goes here-->
+    <Modal id="new-vault-modal">
+        <template #modal-title>
+            <h3>New Vault</h3>
+        </template>
+        <template #modal-body>
+            <VaultForm />
+        </template>
+    </Modal>
+    <!-- Keep Modal goes here -->
+    <Modal id="new-keep-modal">
+        <template #modal-title>
+            <h3>New Keep</h3>
+        </template>
+        <template #modal-body>
+            <KeepForm />
+        </template>
+    </Modal>
 </template>
 
 
@@ -36,14 +61,15 @@
 import { computed, onMounted, watchEffect } from '@vue/runtime-core'
 import { useRoute } from 'vue-router'
 import { keepsService } from '../services/KeepsService'
+import { vaultsService } from '../services/VaultsService'
 import Pop from '../utils/Pop'
 import { AppState } from '../AppState'
 export default {
     setup(){
         onMounted(async() => {
             try {
-                await keepsService.getKeeps()
-                await vaultsService.getVaults()
+                await keepsService.getKeepsByProfileId()
+                await vaultsService.getVaultsByProfileId()
             } catch (error) {
                 Pop.toast(error.message, 'error')
             }
@@ -51,8 +77,8 @@ export default {
         const route = useRoute()
         async function getKeeps(){
             try {
-                await keepsService.getKeeps({ creatorId: route.params.id })
-                await vaultsService.getVaults({ creatorId: route.params.id})
+                await keepsService.getKeepsByProfileId({ creatorId: route.params.id })
+                await vaultsService.getVaultsByProfileId({ creatorId: route.params.id})
             } catch (error) {
                 Pop.toast(error.message, 'error')
             }
@@ -61,7 +87,6 @@ export default {
             if (route.params.id) {
                 await profilesService.getProfileById(route.params.id)
                 getKeeps()
-                getVaults()
             }
         })
         return {
@@ -79,5 +104,18 @@ export default {
 .size{
     height: 64px;
     width: 64px;
+}
+img {
+    width: 100%;
+    margin-bottom: 1em;
+}
+.container{
+    padding: 1em;
+    column-count: 4;
+}
+@media(max-width: 600px){
+    .container{
+        column-count: 2;
+    }
 }
 </style>
