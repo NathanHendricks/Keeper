@@ -3,7 +3,7 @@
         <img :src="keep.img" class="card-img" alt="..." />
         <div class="d-flex justify-content-between align-items-end card-img-overlay text-dark lighten-25 shadow">
             <small class="ps-1">{{ keep.name }}</small>
-            <router-link :to="{name: Profile, params: {id: keep.CreatorId} }" class="selectable">
+            <router-link @click.stop :to='{name: Profile, params: {id: keep.CreatorId} }' class="selectable">
                 <img :src="keep.creator.picture" class="img-creator rounded-circle" alt="..." />
             </router-link>
         </div>
@@ -14,30 +14,30 @@
         <template #modal-body>
             <div class="row">
                 <div class="col-6">
-                    <img :src="keep.img" alt="keeps img" class="img-fluid">
+                    <img :src="keep.img" alt="keeps img" class="img-fluid rounded elevation-2">
                 </div>
                 <div class="col-6">
-                    <div class="row">
+                    <div class="row mb-5">
                         <p>
                         <i class="mdi mdi-eye">: {{ keep.views }}</i> 
                         <i class="mdi mdi-alpha-k-box-outline ps-2">: {{ keep.keeps }}</i>
                         </p>
                     </div>
-                    <div class="row">
+                    <div class="row mb-5">
                         <h5>{{keep.name}}</h5>
                         <small>{{keep.description}}</small>
                     </div>
-                    <div class="row">
-                        <button class="btn btn-primary">
-                            <small>add to vault</small>
-                        </button>
-                        <i class="mdi mdi-delete text-danger selectable"/>
-                        <div>
+                    <div class="row align-items-end">
+                        <span class="d-flex justify-content-between align-items-end">
+                            <button class="btn btn-primary">
+                                <small>add to vault</small>
+                            </button>
+                            <i class="mdi mdi-delete text-danger selectable"/>
                             <img :src="keep.creator.picture"
                             alt="user photo"
                             height="40"
-                            class="rounded" />
-                        </div>
+                            class="rounded-circle" />
+                        </span>
                     </div>
                 </div>
             </div>
