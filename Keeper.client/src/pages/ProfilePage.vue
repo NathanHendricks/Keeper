@@ -34,7 +34,7 @@
                 </button>
             </div>
         </div>    
-        <div v-if="keeps > 0" class="container">
+        <div v-if="keeps.length > 0" class="container">
             <div class="mb-5">
             <!-- keeps go here with masonary -->
             <h4>Keeps</h4>
@@ -85,28 +85,19 @@ import Pop from '../utils/Pop'
 import { AppState } from '../AppState'
 export default {
     setup(){
+        const route = useRoute()
         onMounted(async() => {
             try {
                 await profilesService.getProfileById(route.params.id)
-                await keepsService.getKeepsByProfileId()
-                await vaultsService.getVaultsByProfileId()
+                await keepsService.getKeepsByProfileId(route.params.id)
+                await vaultsService.getVaultsByProfileId(route.params.id)
             } catch (error) {
                 Pop.toast(error.message, 'error')
             }
         })
-        const route = useRoute()
-        async function getKeeps(){
-            try {
-                await keepsService.getKeepsByProfileId({ creatorId: route.params.id })
-                await vaultsService.getVaultsByProfileId({ creatorId: route.params.id})
-            } catch (error) {
-                Pop.toast(error.message, 'error')
-            }
-        }
         watchEffect(async() => {
             if (route.params.id) {
                 await profilesService.getProfileById(route.params.id)
-                getKeeps()
             }
         })
         return {

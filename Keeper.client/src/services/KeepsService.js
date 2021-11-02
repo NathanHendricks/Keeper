@@ -12,10 +12,10 @@ class KeepsService{
     }
 
     async getKeepsByProfileId(profileId){
-        AppState.vaultkeeps = []
+        AppState.keeps = []
         const res = await api.get(`api/profiles/${profileId}/keeps`)
         logger.log('get all keeps on profile res', res.data)
-        AppState.vaultkeeps = res.data.map(k => new Keep(k))
+        AppState.keeps = res.data.map(k => new Keep(k))
     }
 
     async createKeep(newkeep){
