@@ -1,6 +1,7 @@
 export class Keep{
     constructor(keepData){
         this.id = keepData.id
+        this.vaultKeepId = keepData.vaultKeepId || null
         this.creatorId = keepData.creatorId
         this.name = keepData.name
         this.description = keepData.description

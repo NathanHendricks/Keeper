@@ -3,17 +3,22 @@
     <div class="row mt-5" v-if="vault">
       <div class="col-10 d-flex align-items-start flex-column">
         <h3 class="ps-2">{{ vault.name }}</h3>
-        <em class="ps-2"> Keeps: {{ vaultkeeps.length }} </em>
+        <em class="ps-2"> Keeps: {{ keeps.length }} </em>
       </div>
       <div class="col-2 d-flex justify-content-end align-items-start">
-        <button class="btn btn-outline-info" title="Delete this Vault">
+        <button
+          class="btn btn-outline-info"
+          title="Delete this Vault"
+          v-if="account.id == vault.creatorId"
+          @click="deleteVault(vault.id)"
+        >
           <small>Delete Vault</small>
         </button>
       </div>
     </div>
 
     <div class="row con">
-      <VautlKeepCard v-for="vk in vaultkeeps" :key="vk.id" :vaultkeep="vk" />
+      <VautlKeepCard v-for="k in keeps" :key="k.id" :keep="k" />
     </div>
   </div>
 </template>
@@ -30,6 +35,7 @@ export default {
   setup() {
     const route = useRoute()
     onMounted(async () => {
+
       try {
         await vaultsService.getVaultById(route.params.id)
         await vaultsService.getKeepByVaultId(route.params.id)
@@ -39,8 +45,21 @@ export default {
       }
     })
     return {
+      account: computed(() => AppState.account),
       vault: computed(() => AppState.vault),
-      vaultkeeps: computed(() => AppState.vaultkeeps)
+      keeps: computed(() => AppState.keeps),
+
+      async deleteVault(vaultId) {
+        try {
+          const yes = await Pop.confirm('Are you sure <b>you</b> want to remove this <em>Keep</em>?')
+          if (!yes) { return }
+          await vaultsService.removeVault(vaultId)
+          Pop.toast('Vault has been removed', 'success')
+        } catch (error) {
+          Pop.toast(error.message)
+          logger.log(error)
+        }
+      }
     }
   }
 }

@@ -1,6 +1,6 @@
 import { AppState } from "../AppState"
+import { Keep } from "../Models/Keep"
 import { Vault } from "../Models/Vault"
-import { Vaultkeep } from "../Models/Vaultkeep"
 import { logger } from "../utils/Logger"
 import { api } from "./AxiosService"
 
@@ -24,10 +24,16 @@ class VaultsService{
     }
 
     async getKeepByVaultId(vaultId){
-        AppState.vaultkeeps = []
+        AppState.keeps = []
         const res = await api.get(`api/vaults/${vaultId}/keeps`)
         logger.log('get the vaultkeeps', res.data)
-        AppState.vaultkeeps = res.data.map(vk => new Vaultkeep(vk))
+        AppState.keeps = res.data.map(vk => new Keep(vk))
+    }
+
+    async removeVault(vaultId){
+        const res = await api.delete(`api/vaults/${vaultId}`)
+        logger.log('delete vault res', res)
+        AppState.vaults = AppState.vaults.filter(v => v.id != vaultId)
     }
 }
 
