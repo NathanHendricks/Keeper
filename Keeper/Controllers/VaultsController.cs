@@ -22,25 +22,27 @@ namespace Keeper.Controllers
 
         // THIS WILL GET VALUTS BY ID ---------------------------------
         [HttpGet("{vaultId}")]
-        public ActionResult<Vault> GetById(int vaultId)
+        public async Task<ActionResult<Vault>> GetById(int vaultId)
         {
             try
             {
-                return Ok(_vaultsService.GetById(vaultId));
+                Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+                return (Ok(_vaultsService.GetById(vaultId, userInfo?.Id)));
             }
             catch (System.Exception e)
             {
-                return BadRequest(e.Message);
+                return (BadRequest(e.Message));
             }
         }
 
         // THIS WILL GET ALL VAULTKEEPS -----------------------------------------------
         [HttpGet("{vaultId}/keeps")]
-        public ActionResult<List<VaultkeepViewModel>> GetKeepVaults(int vaultId)
+        public async Task<ActionResult<List<VaultkeepViewModel>>> GetKeepVaults(int vaultId)
         {
             try
             {
-                return Ok(_vaultkeepsService.GetKeepVaults(vaultId));
+                Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+                return Ok(_vaultkeepsService.GetKeepVaults(vaultId, userInfo?.Id));
             }
             catch (System.Exception e)
             {

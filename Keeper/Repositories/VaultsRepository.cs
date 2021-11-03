@@ -30,6 +30,21 @@ namespace Keeper.Repositories
             }, new{ profileId }).ToList();
         }
 
+//  THIS WILL GET ONLY THE PUBLIC VAULTS
+        public List<Vault> GetVaultsByProfile(string profileId)
+        {
+            string sql = @"SELECT
+            v.*, a.*
+            FROM vaults v 
+            JOIN accounts a on a.id = v.creatorId
+            WHERE v.creatorId = @profileId AND v.isPrivate = 0;";
+            return _db.Query<Vault, Profile, Vault>(sql, (v, a) =>
+            {
+                v.Creator = a;
+                return v;
+            }, new{ profileId }).ToList();
+        }
+
 //  THIS WILL GET A VAULT BY ITS ID ---------------------------------------------
         public Vault GetById(int vaultId)
         {
