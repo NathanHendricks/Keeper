@@ -9,7 +9,6 @@
 import { Vault } from '../Models/Vault'
 import { router } from '../router'
 import { logger } from '../utils/Logger'
-import Pop from '../utils/Pop'
 export default {
   props: {
     vault: {

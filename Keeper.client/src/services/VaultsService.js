@@ -16,6 +16,10 @@ class VaultsService{
         logger.log('created vault', res.data)
         AppState.vaults.unshift(new Vault(res.data))
     }
+
+    async getKeepByVaultId(vaultId){
+        
+    }
 }
 
 export const vaultsService = new VaultsService()
