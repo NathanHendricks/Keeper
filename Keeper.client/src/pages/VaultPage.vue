@@ -1,7 +1,20 @@
 <template>
-  <div class="col-md-12 d-flex align-items-center flex-row vault-header">
-    <h3 class="ps-2">{{ vault.name }}</h3>
-    <em class="ps-2"> Keeps: {{ vaultkeeps.length }} </em>
+  <div class="container-fluid">
+    <div class="row mt-5" v-if="vault">
+      <div class="col-10 d-flex align-items-start flex-column">
+        <h3 class="ps-2">{{ vault.name }}</h3>
+        <em class="ps-2"> Keeps: {{ vaultkeeps.length }} </em>
+      </div>
+      <div class="col-2 d-flex justify-content-end align-items-start">
+        <button class="btn btn-outline-info" title="Delete this Vault">
+          <small>Delete Vault</small>
+        </button>
+      </div>
+    </div>
+
+    <div class="row con">
+      <VautlKeepCard v-for="vk in vaultkeeps" :key="vk.id" :vaultkeep="vk" />
+    </div>
   </div>
 </template>
 
@@ -18,7 +31,8 @@ export default {
     const route = useRoute()
     onMounted(async () => {
       try {
-        await vaultsService.getkeepByVaultId(route.params.id)
+        await vaultsService.getVaultById(route.params.id)
+        await vaultsService.getKeepByVaultId(route.params.id)
       } catch (error) {
         Pop.toast(error.message, 'error')
         logger.log(error)
@@ -26,8 +40,24 @@ export default {
     })
     return {
       vault: computed(() => AppState.vault),
-      vaultkeep: computed(() => AppState.vaultkeeps)
+      vaultkeeps: computed(() => AppState.vaultkeeps)
     }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+img {
+  width: 100%;
+  margin-bottom: 1em;
+}
+.con {
+  padding: 1em;
+  column-count: 4;
+}
+@media (max-width: 600px) {
+  .container {
+    column-count: 2;
+  }
+}
+</style>

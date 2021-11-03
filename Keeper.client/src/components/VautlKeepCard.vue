@@ -1,6 +1,6 @@
 <template>
   <div class="card p-0 my-2 selectable" @click="openModal()">
-    <img :src="keep.img" class="card-img" alt="..." />
+    <img :src="vaultkeep.img" class="card-img" alt="..." />
     <div
       class="
         d-flex
@@ -11,10 +11,13 @@
         elevation-3
       "
     >
-      <small class="ps-1">{{ keep.name }}</small>
-      <div @click.stop="goToProfilePage(keep.creatorId)" class="selectable">
+      <small class="ps-1">{{ vaultkeep.name }}</small>
+      <div
+        @click.stop="goToProfilePage(vaultkeep.creatorId)"
+        class="selectable"
+      >
         <img
-          :src="keep.creator.picture"
+          :src="vaultkeep.creator.picture"
           class="img-creator rounded-circle"
           alt="..."
         />
@@ -22,13 +25,13 @@
     </div>
   </div>
 
-  <!-- keep modal goes here -->
-  <Modal :id="'keep-modal-' + keep.id">
+  <!-- vaultkeep modal goes here -->
+  <Modal :id="'vault-keep-modal-' + vaultkeep.id">
     <template #modal-body>
       <div class="row">
         <div class="col-6">
           <img
-            :src="keep.img"
+            :src="vaultkeep.img"
             alt="keeps img"
             class="img-fluid rounded elevation-2"
           />
@@ -36,28 +39,33 @@
         <div class="col-6">
           <div class="row mb-5">
             <p>
-              <i class="mdi mdi-eye">: {{ keep.views }}</i>
-              <i class="mdi mdi-alpha-k-box-outline ps-2">: {{ keep.keeps }}</i>
+              <i class="mdi mdi-eye">: {{ vaultkeep.views }}</i>
+              <i class="mdi mdi-alpha-k-box-outline ps-2"
+                >: {{ vaultkeep.keeps }}</i
+              >
             </p>
           </div>
           <div class="row mb-5">
-            <h5>{{ keep.name }}</h5>
-            <small>{{ keep.description }}</small>
+            <h5>{{ vaultkeep.name }}</h5>
+            <small>{{ vaultkeep.description }}</small>
           </div>
           <div class="row align-items-end">
             <span class="d-flex justify-content-between align-items-end">
-              <button class="btn btn-outline-primary">
-                <small>add to vault</small>
+              <button class="btn btn-outline-info">
+                <small>Remove from vault</small>
               </button>
               <i
                 class="mdi mdi-delete text-danger selectable"
-                v-if="account.id == keep.creatorId"
-                @click="removeKeep()"
-                title="Remove this Keep"
+                v-if="account.id == vaultkeep.creatorId"
+                @click="removeVaultkeep()"
+                title="Remove this Vaultkeep"
               />
-              <div @click="goToProfilePage(keep.creatorId)" class="selectable">
+              <div
+                @click="goToProfilePage(vaultkeep.creatorId)"
+                class="selectable"
+              >
                 <img
-                  :src="keep.creator.picture"
+                  :src="vaultkeep.creator.picture"
                   class="img-creator rounded-circle"
                   alt="..."
                 />
@@ -72,33 +80,33 @@
 
 
 <script>
-import { Modal } from 'bootstrap'
-import { useRoute } from 'vue-router'
-import { Keep } from "../Models/Keep"
-import { router } from '../router'
-import { logger } from '../utils/Logger'
-import Pop from '../utils/Pop'
+import { vaultsService } from '../services/VaultsService'
+import { Vaultkeep } from '../Models/Vaultkeep'
 import { computed } from '@vue/reactivity'
+import { logger } from '../utils/Logger'
 import { AppState } from '../AppState'
-import { keepsService } from '../services/KeepsService'
+import { useRoute } from 'vue-router'
+import { router } from '../router'
+import { Modal } from 'bootstrap'
+import Pop from '../utils/Pop'
 export default {
   props: {
-    keep: {
-      type: Keep,
-      default: () => { return new Keep() }
+    vaultkeep: {
+      type: Vaultkeep,
+      default: () => { return new Vaultkeep() }
     }
   },
   setup(props) {
     const route = useRoute()
     return {
       account: computed(() => AppState.account),
-      async removeKeep() {
+      async removeVaultkeep() {
         try {
           const yes = await Pop.confirm('Are you sure <b>you</b> want to remove this <em>Keep</em>?')
           if (!yes) { return }
-          const modal = Modal.getOrCreateInstance(document.getElementById(`keep-modal-${props.keep.id}`))
+          const modal = Modal.getOrCreateInstance(document.getElementById(`keep-modal-${props.vaultkeep.id}`))
           modal.hide()
-          await keepsService.removeKeep(props.keep.id)
+          await vaultsService.removeVaultkeep(props.vaultkeep.id)
           Pop.toast('Keep has been removed', 'success')
         } catch (error) {
           Pop.toast(error.message)
@@ -108,7 +116,7 @@ export default {
       goToProfilePage(id) {
         try {
           logger.log(id)
-          const modal = Modal.getOrCreateInstance(document.getElementById(`keep-modal-${props.keep.id}`))
+          const modal = Modal.getOrCreateInstance(document.getElementById(`vault-keep-modal-${props.vaultkeep.id}`))
           modal.hide()
           router.push({ name: 'Profile', params: { id: id } })
         } catch (error) {
@@ -117,7 +125,7 @@ export default {
         }
       },
       openModal() {
-        const modal = Modal.getOrCreateInstance(document.getElementById(`keep-modal-${props.keep.id}`))
+        const modal = Modal.getOrCreateInstance(document.getElementById(`vault-keep-modal-${props.vaultkeep.id}`))
         modal.show()
       }
 
