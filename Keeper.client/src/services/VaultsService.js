@@ -12,7 +12,7 @@ class VaultsService{
     }
 
     async createVault(newVault){
-        const res = await api.Post('api/vaults', newVault)
+        const res = await api.post('api/vaults', newVault)
         logger.log('created vault', res.data)
         AppState.vaults.unshift(new Vault(res.data))
     }

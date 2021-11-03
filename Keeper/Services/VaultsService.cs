@@ -20,6 +20,7 @@ namespace Keeper.Services
         }
 
 //  THIS WILL GET A VAULT BY ITS ID ---------------------------------
+//  isPrivate check goes here
         public Vault GetById(int vaultId)
         {
             Vault foundVault = _vaultsRepository.GetById(vaultId);

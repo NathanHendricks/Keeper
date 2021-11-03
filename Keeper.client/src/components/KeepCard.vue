@@ -50,7 +50,12 @@
               <button class="btn btn-primary">
                 <small>add to vault</small>
               </button>
-              <i class="mdi mdi-delete text-danger selectable" />
+              <i
+                class="mdi mdi-delete text-danger selectable"
+                v-if="account.id == keep.creatorId"
+                @click="removeKeep()"
+                title="Remove this Keep"
+              />
               <div @click="goToProfilePage(keep.creatorId)" class="selectable">
                 <img
                   :src="keep.creator.picture"
@@ -71,24 +76,35 @@
 import { Modal } from 'bootstrap'
 import { useRoute } from 'vue-router'
 import { Keep } from "../Models/Keep"
-import { Profile } from '../Models/Profile'
 import { router } from '../router'
 import { logger } from '../utils/Logger'
 import Pop from '../utils/Pop'
+import { computed } from '@vue/reactivity'
+import { AppState } from '../AppState'
+import { keepsService } from '../services/KeepsService'
 export default {
   props: {
     keep: {
       type: Keep,
       default: () => { return new Keep() }
     }
-    // profile: {
-    //     type: Profile,
-    //     default: () => { return new Profile() }
-    // }
   },
   setup(props) {
     const route = useRoute()
     return {
+      account: computed(() => AppState.account),
+      // FIXME delete need to close modal when keep is deleted
+      async removeKeep() {
+        try {
+          const yes = await Pop.confirm('Are you sure <b>you</b> want to remove this <em>Keep</em>?')
+          if (!yes) { return }
+          await keepsService.removeKeep(props.keep.id)
+          Pop.toast('Keep has been removed', 'success')
+        } catch (error) {
+          Pop.toast(error.message)
+          logger.log(error)
+        }
+      },
       goToProfilePage(id) {
         try {
           logger.log(id)
@@ -96,11 +112,10 @@ export default {
           modal.hide()
           router.push({ name: 'Profile', params: { id: id } })
         } catch (error) {
-          Pop.toast(error.message)
+          Pop.toast(error.message, 'error')
           logger.log(error)
         }
       },
-
       openModal() {
         const modal = Modal.getOrCreateInstance(document.getElementById(`keep-modal-${props.keep.id}`))
         modal.show()
