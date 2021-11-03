@@ -105,12 +105,13 @@
 
 <script>
 import { computed, onMounted, watchEffect } from '@vue/runtime-core'
-import { useRoute } from 'vue-router'
-import { keepsService } from '../services/KeepsService'
-import { vaultsService } from '../services/VaultsService'
 import { profilesService } from '../services/ProfilesService'
-import Pop from '../utils/Pop'
+import { vaultsService } from '../services/VaultsService'
+import { keepsService } from '../services/KeepsService'
+import { logger } from '../utils/Logger'
 import { AppState } from '../AppState'
+import { useRoute } from 'vue-router'
+import Pop from '../utils/Pop'
 export default {
   setup() {
     const route = useRoute()
@@ -125,7 +126,14 @@ export default {
     })
     watchEffect(async () => {
       if (route.params.id) {
-        await profilesService.getProfileById(route.params.id)
+        try {
+          await profilesService.getProfileById(route.params.id)
+          await keepsService.getKeepsByProfileId(route.params.id)
+          await vaultsService.getVaultsByProfileId(route.params.id)
+        } catch (error) {
+          Pop.toast(error.message)
+          logger.log(error)
+        }
       }
     })
     return {

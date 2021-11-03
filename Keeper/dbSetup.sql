@@ -48,16 +48,3 @@ CREATE TABLE IF NOT EXISTS vault_keeps(
 ) DEFAULT CHARSET utf8 COMMENT '';
 
 DROP TABLE vault_keeps;
-
- SELECT 
-            vk.id as vaultKeepId,
-            vk.vaultId as vaultId,
-            vk.keepId as keepId,
-            v.*,
-            k.*,
-            a.*
-            FROM vault_keeps vk
-            JOIN vaults v ON v.id = vk.vaultId
-            JOIN keeps k ON k.id = vk.keepId
-            JOIN accounts a on a.id = vk.creatorId
-            WHERE vk.vaultId = 28;
