@@ -93,11 +93,12 @@ export default {
     const route = useRoute()
     return {
       account: computed(() => AppState.account),
-      // FIXME delete need to close modal when keep is deleted
       async removeKeep() {
         try {
           const yes = await Pop.confirm('Are you sure <b>you</b> want to remove this <em>Keep</em>?')
           if (!yes) { return }
+          const modal = Modal.getOrCreateInstance(document.getElementById(`keep-modal-${props.keep.id}`))
+          modal.hide()
           await keepsService.removeKeep(props.keep.id)
           Pop.toast('Keep has been removed', 'success')
         } catch (error) {
