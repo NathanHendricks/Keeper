@@ -13,6 +13,7 @@ class VaultsService{
     }
 
     async getVaultById(vaultId){
+        AppState.vault = null
         const res = await api.get(`api/vaults/${vaultId}`)
         logger.log('get the vault by its id', res.data)
         AppState.vault = new Vault(res.data)
@@ -20,7 +21,7 @@ class VaultsService{
     async createVault(newVault){
         const res = await api.post('api/vaults', newVault)
         logger.log('created vault', res.data)
-        AppState.vaults.unshift(new Vault(res.data))
+        AppState.vaults = [new Vault(res.data), ...AppState.vaults]
     }
 
     async getKeepByVaultId(vaultId){
