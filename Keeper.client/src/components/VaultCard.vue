@@ -1,5 +1,5 @@
 <template>
-  <div class="card p-0 my-2 selectable" @click="goToVaultPage(vault.id)">
+  <div class="card ps-2-0 m-2 selectable" @click="goToVaultPage(vault.id)">
     <small class="ps-1">{{ vault.name }}</small>
   </div>
 </template>
@@ -19,11 +19,11 @@ export default {
   },
   setup() {
     return {
-      async goToVaultsPage(id) {
+      async goToVaultPage(id) {
         try {
           router.push({ name: 'Vault', params: { id: id } })
         } catch (error) {
-          Pop.toast(error.message, 'error')
+          // Pop.toast(error.message, 'error')
           logger.log(error)
         }
       }
@@ -34,4 +34,7 @@ export default {
 
 
 <style lang="scss" scoped>
+.card {
+  max-width: 100px;
+}
 </style>

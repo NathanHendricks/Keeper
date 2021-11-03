@@ -7,9 +7,8 @@
         justify-content-between
         align-items-end
         card-img-overlay
-        text-dark
-        lighten-25
-        shadow
+        text-white
+        elevation-3
       "
     >
       <small class="ps-1">{{ keep.name }}</small>

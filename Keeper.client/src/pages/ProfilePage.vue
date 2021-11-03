@@ -2,7 +2,7 @@
   <div class="container-fluid px-2">
     <div class="row mb-5">
       <div
-        class="col-md-12 d-flex align-items-center felx-row profile-header"
+        class="col-md-12 d-flex align-items-center flex-row profile-header"
         v-if="profile"
       >
         <img
@@ -23,12 +23,12 @@
         </div>
       </div>
     </div>
-    <div v-if="vaults > 0">
+    <div v-if="vaults.length > 0">
       <div class="mb-5">
         <!-- vaults go here in line -->
-        <h4>Vaults</h4>
+        <h4 class="ms-3">Vaults</h4>
         <button
-          class="btn btn-primary"
+          class="btn btn-primary ms-3"
           data-bs-toggle="modal"
           data-bs-target="#new-vault-modal"
           title="Add a Vault"
@@ -36,7 +36,9 @@
           <i mdi mdi-plus f-20 />
         </button>
         <!-- component goes here -->
-        <VaultCard v-for="v in vaults" :key="v.id" :vault="v" />
+        <div class="row d-flex flex-row ms-1 ps-1">
+          <VaultCard v-for="v in vaults" :key="v.id" :vault="v" />
+        </div>
       </div>
     </div>
     <div v-else>
@@ -52,7 +54,7 @@
         </button>
       </div>
     </div>
-    <div v-if="keeps.length > 0" class="container">
+    <div v-if="keeps.length > 0" class="con">
       <div class="mb-5">
         <!-- keeps go here with masonary -->
         <h4>Keeps</h4>
@@ -156,7 +158,7 @@ img {
   width: 100%;
   margin-bottom: 1em;
 }
-.container {
+.con {
   padding: 1em;
   column-count: 4;
 }
