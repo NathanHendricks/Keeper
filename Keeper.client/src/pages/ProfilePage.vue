@@ -54,7 +54,7 @@
         </button>
       </div>
     </div>
-    <div v-if="keeps.length > 0" class="con">
+    <div v-if="keeps.length > 0">
       <div class="mb-5">
         <!-- keeps go here with masonary -->
         <h4>Keeps</h4>
@@ -67,7 +67,9 @@
           <i mdi mdi-plus f-20 />
         </button>
         <!-- component goes here -->
-        <KeepCard v-for="k in keeps" :key="k.id" :keep="k" />
+        <div class="con">
+          <KeepCard v-for="k in keeps" :key="k.id" :keep="k" />
+        </div>
       </div>
     </div>
     <div v-else>
@@ -154,13 +156,17 @@ export default {
   height: 10vh;
   width: 10vw;
 }
-img {
-  width: 100%;
-  margin-bottom: 1em;
-}
 .con {
-  padding: 1em;
-  column-count: 4;
+  columns: 6 200px;
+  column-gap: 1rem;
+  div {
+    width: 150px;
+    background: #ec985a;
+    color: white;
+    margin: 0 1rem 1rem 0;
+    display: inline-block;
+    width: 100%;
+  }
 }
 @media (max-width: 600px) {
   .container {

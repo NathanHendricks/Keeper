@@ -20,54 +20,59 @@
         />
       </div>
     </div>
-  </div>
 
-  <!-- keep modal goes here -->
-  <Modal :id="'keep-modal-' + keep.id">
-    <template #modal-body>
-      <div class="row">
-        <div class="col-6">
-          <img
-            :src="keep.img"
-            alt="keeps img"
-            class="img-fluid rounded elevation-2"
-          />
-        </div>
-        <div class="col-6">
-          <div class="row mb-5">
-            <p>
-              <i class="mdi mdi-eye">: {{ keep.views }}</i>
-              <i class="mdi mdi-alpha-k-box-outline ps-2">: {{ keep.keeps }}</i>
-            </p>
+    <!-- keep modal goes here -->
+    <Modal :id="'keep-modal-' + keep.id">
+      <template #modal-body>
+        <div class="row">
+          <div class="col-6">
+            <img
+              :src="keep.img"
+              alt="keeps img"
+              class="img-fluid rounded elevation-2"
+            />
           </div>
-          <div class="row mb-5">
-            <h5>{{ keep.name }}</h5>
-            <small>{{ keep.description }}</small>
-          </div>
-          <div class="row align-items-end">
-            <span class="d-flex justify-content-between align-items-end">
-              <button class="btn btn-outline-primary">
-                <small>add to vault</small>
-              </button>
-              <i
-                class="mdi mdi-delete text-danger selectable"
-                v-if="account.id == keep.creatorId"
-                @click="removeKeep()"
-                title="Remove this Keep"
-              />
-              <div @click="goToProfilePage(keep.creatorId)" class="selectable">
-                <img
-                  :src="keep.creator.picture"
-                  class="img-creator rounded-circle"
-                  alt="..."
+          <div class="col-6">
+            <div class="row mb-5">
+              <p>
+                <i class="mdi mdi-eye">: {{ keep.views }}</i>
+                <i class="mdi mdi-alpha-k-box-outline ps-2"
+                  >: {{ keep.keeps }}</i
+                >
+              </p>
+            </div>
+            <div class="row mb-5">
+              <h5>{{ keep.name }}</h5>
+              <small>{{ keep.description }}</small>
+            </div>
+            <div class="row align-items-end">
+              <span class="d-flex justify-content-between align-items-end">
+                <button class="btn btn-outline-primary">
+                  <small>add to vault</small>
+                </button>
+                <i
+                  class="mdi mdi-delete text-danger selectable"
+                  v-if="account.id == keep.creatorId"
+                  @click="removeKeep()"
+                  title="Remove this Keep"
                 />
-              </div>
-            </span>
+                <div
+                  @click="goToProfilePage(keep.creatorId)"
+                  class="selectable"
+                >
+                  <img
+                    :src="keep.creator.picture"
+                    class="img-creator rounded-circle"
+                    alt="..."
+                  />
+                </div>
+              </span>
+            </div>
           </div>
         </div>
-      </div>
-    </template>
-  </Modal>
+      </template>
+    </Modal>
+  </div>
 </template>
 
 

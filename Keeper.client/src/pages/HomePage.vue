@@ -1,8 +1,8 @@
 <template>
-    <div class="container">
-            <!-- keeps go here  -->
-            <KeepCard v-for="k in keeps" :key="k.id" :keep="k"/>
-    </div>
+  <div class="con">
+    <!-- keeps go here  -->
+    <KeepCard v-for="k in keeps" :key="k.id" :keep="k" />
+  </div>
 </template>
 
 
@@ -13,35 +13,39 @@ import { logger } from '../utils/Logger'
 import { AppState } from '../AppState'
 import { keepsService } from '../services/KeepsService'
 export default {
-    setup(){
-        watchEffect(() => {
-            try {
-                keepsService.getAll()
-            } catch (error) {
-                Pop.toast(error.message, 'error')
-                logger.log(error)
-            }
-        })
-        return {
-            keeps: computed(() => AppState.keeps)
-        }
+  setup() {
+    watchEffect(() => {
+      try {
+        keepsService.getAll()
+      } catch (error) {
+        Pop.toast(error.message, 'error')
+        logger.log(error)
+      }
+    })
+    return {
+      keeps: computed(() => AppState.keeps)
     }
+  }
 }
 </script>
 
 
 <style lang="scss" scoped>
-img {
+.con {
+  columns: 6 200px;
+  column-gap: 1rem;
+  div {
+    width: 150px;
+    background: #ec985a;
+    color: white;
+    margin: 0 1rem 1rem 0;
+    display: inline-block;
     width: 100%;
-    margin-bottom: 1em;
+  }
 }
-.container{
-    padding: 1em;
-    column-count: 4;
-}
-@media(max-width: 600px){
-    .container{
-        column-count: 2;
-    }
+@media (max-width: 600px) {
+  .container {
+    column-count: 2;
+  }
 }
 </style>

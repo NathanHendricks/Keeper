@@ -42,6 +42,7 @@ export default {
       } catch (error) {
         Pop.toast(error.message, 'error')
         logger.log(error)
+        // router push happens here back to home page
       }
     })
     return {
@@ -66,13 +67,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-img {
-  width: 100%;
-  margin-bottom: 1em;
-}
 .con {
-  padding: 1em;
-  column-count: 4;
+  columns: 6 200px;
+  column-gap: 1rem;
+  div {
+    width: 150px;
+    background: #ec985a;
+    color: white;
+    margin: 0 1rem 1rem 0;
+    display: inline-block;
+    width: 100%;
+  }
 }
 @media (max-width: 600px) {
   .container {
