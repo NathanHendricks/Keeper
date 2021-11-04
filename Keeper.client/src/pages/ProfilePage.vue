@@ -26,15 +26,18 @@
     <div v-if="vaults.length > 0">
       <div class="mb-5">
         <!-- vaults go here in line -->
-        <h4 class="ms-3">Vaults</h4>
-        <button
-          class="btn btn-primary ms-3"
-          data-bs-toggle="modal"
-          data-bs-target="#new-vault-modal"
-          title="Add a Vault"
-        >
-          <i mdi mdi-plus f-20 />
-        </button>
+        <div class="d-flex">
+          <h4 class="ms-3">Vaults:</h4>
+          <button
+            class="btn btn-outline-primary ms-3 p-1 rounded"
+            data-bs-toggle="modal"
+            data-bs-target="#new-vault-modal"
+            v-if="account.id == profile.id"
+            title="Add a Vault"
+          >
+            <i class="mdi mdi-plus f-10" />
+          </button>
+        </div>
         <!-- component goes here -->
         <div class="row d-flex flex-row ms-1 ps-1">
           <VaultCard v-for="v in vaults" :key="v.id" :vault="v" />
@@ -44,28 +47,32 @@
     <div v-else>
       <div class="ms-2 mb-5">
         <h5>No Vaults....</h5>
-        <button
-          class="btn btn-primary"
+        <!-- <button
+          class="btn btn-outline-primary ms-1 p-1 rounded"
           data-bs-toggle="modal"
           data-bs-target="#new-vault-modal"
+          v-if="account.id == profile.id"
           title="Add a Vault"
         >
-          <i mdi mdi-plus f-20 />
-        </button>
+          <i class="mdi mdi-plus f-10" />
+        </button> -->
       </div>
     </div>
     <div v-if="keeps.length > 0">
-      <div class="mb-5">
+      <div class="mb-5 ms-3">
         <!-- keeps go here with masonary -->
-        <h4>Keeps</h4>
-        <button
-          class="btn btn-primary"
-          data-bs-toggle="modal"
-          data-bs-target="#new-keep-modal"
-          title="Add a Keep"
-        >
-          <i mdi mdi-plus f-20 />
-        </button>
+        <div class="d-flex">
+          <h4>Keeps:</h4>
+          <button
+            class="btn btn-outline-primary ms-2 p-1 rounded"
+            data-bs-toggle="modal"
+            data-bs-target="#new-keep-modal"
+            v-if="account.id == profile.id"
+            title="Add a Keep"
+          >
+            <i class="mdi mdi-plus f-10" />
+          </button>
+        </div>
         <!-- component goes here -->
         <div class="con">
           <KeepCard v-for="k in keeps" :key="k.id" :keep="k" />
@@ -75,14 +82,15 @@
     <div v-else>
       <div class="mb-5">
         <h5>No Keeps....</h5>
-        <button
-          class="btn btn-primary"
+        <!-- <button
+          class="btn btn-outline-primary ms-2 p-1 rounded"
           data-bs-toggle="modal"
           data-bs-target="#new-keep-modal"
+          v-if="account.id == profile.id"
           title="Add a Keep"
         >
-          <i mdi mdi-plus f-20 />
-        </button>
+          <i class="mdi mdi-plus f-10" />
+        </button> -->
       </div>
     </div>
   </div>

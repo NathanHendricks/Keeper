@@ -48,6 +48,9 @@ namespace Keeper.Repositories
         public Keep GetById(int keepId)
         {
             string sql = @"
+            UPDATE keeps k
+            SET
+            views = k.views + 1;
             SELECT k.*, a.*
             FROM keeps k
             JOIN accounts a on a.id = k.creatorId
@@ -92,16 +95,9 @@ namespace Keeper.Repositories
 //  THIS WILL SOFT DELETE A KEEP ---------------------------------
         public void Delete(int id)
         {
-            string sql = @"
-            UPDATE keeps
-            SET IsDeleted = 1
-            WHERE id = @id
-            LIMIT 1;";
-            var rowsAffected =_db.Execute(sql, new{ id } );
-            if(rowsAffected == 0)
-            {
-                throw new System.Exception("Delete Failed....");
-            }
+            string sql = "DELETE FROM keeps WHERE id = @Id LIMIT 1;";
+            _db.Execute(sql, new{ id } );
+            
         }
     }
 }
