@@ -59,7 +59,7 @@
                   </button>
                   <ul class="dropdown-menu" aria-labelledby="dropdownmenu">
                     <li v-for="u in uservaults" :key="u" uservault="u">
-                      {{ uservaults.vault }}
+                      {{ uservaults.name }}
                     </li>
                   </ul>
                 </div>
