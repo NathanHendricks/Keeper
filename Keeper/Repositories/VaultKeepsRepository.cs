@@ -58,6 +58,10 @@ namespace Keeper.Repositories
         public Vaultkeep Create(Vaultkeep newVK)
         {
             string sql = @"
+            UPDATE keeps k
+            SET
+            keeps = k.keeps + 1
+            WHERE k.id = @KeepId;
             INSERT INTO vault_keeps(vaultId, keepId, creatorId)
             VALUES (@VaultId, @KeepId, @CreatorId);
             SELECT LAST_INSERT_ID();";
