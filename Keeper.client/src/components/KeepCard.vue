@@ -47,9 +47,22 @@
             </div>
             <div class="row align-items-end">
               <span class="d-flex justify-content-between align-items-end">
-                <button class="btn btn-outline-primary">
-                  <small>add to vault</small>
-                </button>
+                <div class="dropdown">
+                  <button
+                    class="btn btn-outline-primary dropdown-toggle"
+                    type="button"
+                    id="dropdownmenu"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <small>add to vault</small>
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownmenu">
+                    <li v-for="u in uservaults" :key="u" uservault="u">
+                      {{ uservaults.vault }}
+                    </li>
+                  </ul>
+                </div>
                 <i
                   class="mdi mdi-delete text-danger selectable"
                   v-if="account.id == keep.creatorId"
@@ -97,6 +110,7 @@ export default {
     const route = useRoute()
     return {
       account: computed(() => AppState.account),
+      uservaults: computed(() => AppState.uservaults),
       async removeKeep() {
         try {
           const yes = await Pop.confirm('Are you sure <b>you</b> want to remove this <em>Keep</em>?')
@@ -121,11 +135,16 @@ export default {
           logger.log(error)
         }
       },
-      openModal() {
+      async openModal() {
         const modal = Modal.getOrCreateInstance(document.getElementById(`keep-modal-${props.keep.id}`))
         modal.show()
+        try {
+          await keepsService.getById(props.keep.id)
+        } catch (error) {
+          Pop.toast(error.message, 'error')
+          logger.log(error)
+        }
       }
-
     }
   }
 }

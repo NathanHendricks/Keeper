@@ -5,11 +5,17 @@ import { api } from "./AxiosService"
 
 class KeepsService{
     async getAll(){
-        const res = await api.get('api/keeps')
         AppState.keeps = []
+        const res = await api.get('api/keeps')
         // logger.log('get all keeps res', res.data)
         AppState.keeps = res.data.map(k => new Keep(k))
         // logger.log("after appstate res", AppState.keeps)
+    }
+
+    async getById(keepId){
+        const res = await api.get(`api/keeps/${keepId}`)
+        logger.log('get a keep by id', res)
+        AppState.userskeep = new Keep(res.data)
     }
 
     async getKeepsByProfileId(profileId){

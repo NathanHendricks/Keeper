@@ -1,5 +1,5 @@
 <template>
-  <div class="con">
+  <div class="con ms-2">
     <!-- keeps go here  -->
     <KeepCard v-for="k in keeps" :key="k.id" :keep="k" />
   </div>
@@ -23,7 +23,8 @@ export default {
       }
     })
     return {
-      keeps: computed(() => AppState.keeps)
+      keeps: computed(() => AppState.keeps),
+      uservaults: computed(() => AppState.uservaults)
     }
   }
 }

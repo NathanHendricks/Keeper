@@ -11,6 +11,11 @@ class VaultsService{
         logger.log('get all vaults on profile res', res.data)
         AppState.vaults = res.data.map(v => new Vault(v))
     }
+    async getVaultsByAccountId(profileId){
+        const res = await api.get(`api/profiles/${profileId}/vaults`)
+        logger.log('get all the users vault res', res.data)
+        AppState.uservaults = res.data.map(u => new Vault(u))
+    }
 
     async getVaultById(vaultId){
         AppState.vault = null
@@ -35,6 +40,12 @@ class VaultsService{
         const res = await api.delete(`api/vaults/${vaultId}`)
         logger.log('delete vault res', res)
         AppState.vaults = AppState.vaults.filter(v => v.id != vaultId)
+    }
+
+    async removeVaultkeep(vaultkeepId){
+        const res = await api.delete(`api/vaultkeeps/${vaultkeepId}`)
+        logger.log('delete vaultkeep res', res)
+        AppState.vaultkeeps = AppState.vaultkeeps.filter(v => v.id != vaultkeepId)
     }
 }
 

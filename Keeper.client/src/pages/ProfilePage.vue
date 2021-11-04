@@ -132,8 +132,10 @@ export default {
         await profilesService.getProfileById(route.params.id)
         await keepsService.getKeepsByProfileId(route.params.id)
         await vaultsService.getVaultsByProfileId(route.params.id)
+        await vaultsService.getVaultsByAccountId(route.params.id)
       } catch (error) {
         Pop.toast(error.message, 'error')
+        logger.log(error)
       }
     })
     watchEffect(async () => {

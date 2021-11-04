@@ -46,15 +46,13 @@
           </div>
           <div class="row align-items-end">
             <span class="d-flex justify-content-between align-items-end">
-              <button class="btn btn-outline-info">
+              <button
+                class="btn btn-outline-info"
+                v-if="account.id == keep.creatorId"
+                @click="removeVaultkeep(keep.vaultKeepId)"
+              >
                 <small>Remove from vault</small>
               </button>
-              <i
-                class="mdi mdi-delete text-danger selectable"
-                v-if="account.id == keep.creatorId"
-                @click="removeVaultkeep()"
-                title="Remove this Vaultkeep"
-              />
               <div @click="goToProfilePage(keep.creatorId)" class="selectable">
                 <img
                   :src="keep.creator.picture"
@@ -92,13 +90,13 @@ export default {
     const route = useRoute()
     return {
       account: computed(() => AppState.account),
-      async removeVaultkeep() {
+      async removeVaultkeep(id) {
         try {
           const yes = await Pop.confirm('Are you sure <b>you</b> want to remove this <em>Keep</em>?')
           if (!yes) { return }
-          const modal = Modal.getOrCreateInstance(document.getElementById(`keep-modal-${props.keep.id}`))
+          const modal = Modal.getOrCreateInstance(document.getElementById(`vault-keep-modal-${props.keep.id}`))
           modal.hide()
-          await vaultsService.removeVaultkeep(props.keep.id)
+          await vaultsService.removeVaultkeep(id)
           Pop.toast('Keep has been removed', 'success')
         } catch (error) {
           Pop.toast(error.message)
