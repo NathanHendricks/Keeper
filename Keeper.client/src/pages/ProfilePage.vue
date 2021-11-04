@@ -39,7 +39,7 @@
           </button>
         </div>
         <!-- component goes here -->
-        <div class="row d-flex flex-row ms-1 ps-1">
+        <div class="row d-flex flex-row ms-1 px-1">
           <VaultCard v-for="v in vaults" :key="v.id" :vault="v" />
         </div>
       </div>
@@ -47,7 +47,7 @@
     <div v-else>
       <div class="ms-2 mb-5">
         <h5>No Vaults....</h5>
-        <!-- <button
+        <button
           class="btn btn-outline-primary ms-1 p-1 rounded"
           data-bs-toggle="modal"
           data-bs-target="#new-vault-modal"
@@ -55,7 +55,7 @@
           title="Add a Vault"
         >
           <i class="mdi mdi-plus f-10" />
-        </button> -->
+        </button>
       </div>
     </div>
     <div v-if="keeps.length > 0">
@@ -74,7 +74,7 @@
           </button>
         </div>
         <!-- component goes here -->
-        <div class="con">
+        <div class="con px-1">
           <KeepCard v-for="k in keeps" :key="k.id" :keep="k" />
         </div>
       </div>
@@ -82,7 +82,7 @@
     <div v-else>
       <div class="mb-5">
         <h5>No Keeps....</h5>
-        <!-- <button
+        <button
           class="btn btn-outline-primary ms-2 p-1 rounded"
           data-bs-toggle="modal"
           data-bs-target="#new-keep-modal"
@@ -90,7 +90,7 @@
           title="Add a Keep"
         >
           <i class="mdi mdi-plus f-10" />
-        </button> -->
+        </button>
       </div>
     </div>
   </div>

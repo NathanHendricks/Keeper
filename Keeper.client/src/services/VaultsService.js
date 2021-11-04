@@ -1,6 +1,7 @@
 import { AppState } from "../AppState"
 import { Keep } from "../Models/Keep"
 import { Vault } from "../Models/Vault"
+import { Vaultkeep } from "../Models/Vaultkeep"
 import { logger } from "../utils/Logger"
 import { api } from "./AxiosService"
 
@@ -13,8 +14,9 @@ class VaultsService{
     }
     async getVaultsByAccountId(profileId){
         const res = await api.get(`api/profiles/${profileId}/vaults`)
-        logger.log('get all the users vault res', res.data)
+        // logger.log('get all the users vault res', res.data)
         AppState.uservaults = res.data.map(u => new Vault(u))
+        logger.log("after mapping uservaults", AppState.uservaults)
     }
 
     async getVaultById(vaultId){
@@ -29,6 +31,12 @@ class VaultsService{
         AppState.vaults = [new Vault(res.data), ...AppState.vaults]
     }
 
+    async createVaultkeep(newvaultkeep){
+        const res = await api.post('api/vaultkeeps', newvaultkeep)
+        logger.log('created vaultkeep', res.data)
+        AppState.vaultkeeps =[new Vaultkeep(res.data), ...AppState.vaultkeeps]
+    }
+
     async getKeepByVaultId(vaultId){
         AppState.keeps = []
         const res = await api.get(`api/vaults/${vaultId}/keeps`)
@@ -40,6 +48,7 @@ class VaultsService{
         const res = await api.delete(`api/vaults/${vaultId}`)
         logger.log('delete vault res', res)
         AppState.vaults = AppState.vaults.filter(v => v.id != vaultId)
+        AppState.vaultkeeps = AppState.vaultkeeps.filter((vk => vk.id != vaultId))
     }
 
     async removeVaultkeep(vaultkeepId){

@@ -1,5 +1,5 @@
 <template>
-  <div class="con ms-2">
+  <div class="con mx-2">
     <!-- keeps go here  -->
     <KeepCard v-for="k in keeps" :key="k.id" :keep="k" />
   </div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="card p-0 my-2 selectable" @click="openModal()">
+  <div class="card p-0 my-2 selectable" @click.stop="openModal(account.id)">
     <img :src="keep.img" class="card-img" alt="..." />
     <div
       class="
@@ -58,8 +58,12 @@
                     <small>add to vault</small>
                   </button>
                   <ul class="dropdown-menu" aria-labelledby="dropdownmenu">
-                    <li v-for="u in uservaults" :key="u" uservault="u">
-                      {{ uservaults.name }}
+                    <li v-for="u in uservaults" :key="u.id" :uservault="u">
+                      <a
+                        class="dropdown-item text-dark"
+                        @click="createVaultkeep(u.id, keep.id)"
+                        >{{ u.name }}</a
+                      >
                     </li>
                   </ul>
                 </div>
@@ -99,6 +103,7 @@ import Pop from '../utils/Pop'
 import { computed } from '@vue/reactivity'
 import { AppState } from '../AppState'
 import { keepsService } from '../services/KeepsService'
+import { vaultsService } from '../services/VaultsService'
 export default {
   props: {
     keep: {
@@ -108,6 +113,14 @@ export default {
   },
   setup(props) {
     const route = useRoute()
+    // onMounted(async () => {
+    //   try {
+    //     await vaultsService.getVaultsByAccountId(account.id)
+    //   } catch (error) {
+    //     Pop.toast(error.message, 'error')
+    //     logger.log(error)
+    //   }
+    // })
     return {
       account: computed(() => AppState.account),
       uservaults: computed(() => AppState.uservaults),
@@ -124,6 +137,20 @@ export default {
           logger.log(error)
         }
       },
+      async createVaultkeep(vaultId, keepId) {
+        try {
+          const modal = Modal.getOrCreateInstance(document.getElementById(`keep-modal-${props.keep.id}`))
+          modal.hide()
+          var obj = {}
+          obj.vaultId = vaultId
+          obj.keepId = keepId
+          await vaultsService.createVaultkeep(obj)
+          Pop.toast('Keep was placed in the vault', 'success')
+        } catch (error) {
+          Pop.toast(error.message, 'error')
+          logger.log(error)
+        }
+      },
       goToProfilePage(id) {
         try {
           logger.log(id)
@@ -135,11 +162,12 @@ export default {
           logger.log(error)
         }
       },
-      async openModal() {
+      async openModal(id) {
         const modal = Modal.getOrCreateInstance(document.getElementById(`keep-modal-${props.keep.id}`))
         modal.show()
         try {
           await keepsService.getById(props.keep.id)
+          await vaultsService.getVaultsByAccountId(id)
         } catch (error) {
           Pop.toast(error.message, 'error')
           logger.log(error)
