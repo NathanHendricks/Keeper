@@ -31,6 +31,7 @@ import Pop from '../utils/Pop'
 import { logger } from '../utils/Logger'
 import { vaultsService } from '../services/VaultsService'
 import { useRoute } from 'vue-router'
+import { router } from '../router'
 export default {
   setup() {
     const route = useRoute()
@@ -43,6 +44,7 @@ export default {
         Pop.toast(error.message, 'error')
         logger.log(error)
         // router push happens here back to home page
+        router.push({ name: 'Home' })
       }
     })
     return {
