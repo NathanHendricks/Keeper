@@ -28,7 +28,7 @@ namespace Keeper.Repositories
             FROM vault_keeps vk
             JOIN vaults v ON v.id = vk.vaultId
             JOIN keeps k ON k.id = vk.keepId
-            JOIN accounts a on a.id = vk.creatorId
+            JOIN accounts a on a.id = k.creatorId
             WHERE vk.vaultId = @vaultId;";
             return _db.Query<VaultkeepViewModel, Profile, VaultkeepViewModel>(sql, (vk, a) =>
             {

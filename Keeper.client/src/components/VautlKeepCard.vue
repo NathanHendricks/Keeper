@@ -48,7 +48,7 @@
             <span class="d-flex justify-content-between align-items-end">
               <button
                 class="btn btn-outline-info"
-                v-if="account.id == keep.creatorId"
+                v-if="account.id == vault.creatorId"
                 @click="removeVaultkeep(keep.vaultKeepId)"
               >
                 <small>Remove from vault</small>
@@ -90,6 +90,7 @@ export default {
     const route = useRoute()
     return {
       account: computed(() => AppState.account),
+      vault: computed(() => AppState.vault),
       async removeVaultkeep(id) {
         try {
           const yes = await Pop.confirm('Are you sure <b>you</b> want to remove this <em>Keep</em>?')
