@@ -50,7 +50,8 @@ namespace Keeper.Repositories
             string sql = @"
             UPDATE keeps k
             SET
-            views = k.views + 1;
+            views = k.views + 1
+            WHERE k.id = @keepId;
             SELECT k.*, a.*
             FROM keeps k
             JOIN accounts a on a.id = k.creatorId
